@@ -19,8 +19,8 @@ public class App {
 	
 	System.out.println(machine.getState());
 
-	Drinks drink = Drinks.LATTE;
-	System.out.println(drink.disponibles());
+	Drinks drink = Drinks.AMERICANO;
+	System.out.println(Drinks.disponibles());
 
 	machine.putCoins(2);
 	machine.putCoins(2);
@@ -37,15 +37,11 @@ public class App {
 
 	machine.putCoins(3);
 	System.out.println(machine.getState());
+	System.out.println(Drinks.disponibles());
 
 	machine.selectDrink(Drinks.CAPUCCINO);
 	System.out.println(machine.getState());
 	
-//	machine.service();
-//	machine.endService();
-//	machine.putCoins(10);
-//	machine.selectDrink(Drinks.LATTE);
-
 	machine.makeDrink();
 	System.out.println(machine.getState());
 

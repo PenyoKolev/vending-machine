@@ -4,40 +4,31 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import inventory.Inventory;
-import inventory.Item;
 
 public enum Drinks {
     SODA(3, 0, 0) {
 	@Override
-	public Item create() {
-	    Item item = new Item(this, getPrice());
+	public void create() {
 	    inventory.setSlots(inventory.getSlots() - 1);
-	    updateInventory(this, item);
-	    return item;
+	    updateInventory(this);
 	}
     },
     AMERICANO(2, 2, 0) {
 	@Override
-	public Item create() {
-	    Item item = new Item(this, getPrice());
-	    updateInventory(this, item);
-	    return item;
+	public void create() {
+	    updateInventory(this);
 	}
     },
     CAPUCCINO(3, 1, 2) {
 	@Override
-	public Item create() {
-	    Item item = new Item(this, getPrice());
-	    updateInventory(this, item);
-	    return item;
+	public void create() {
+	    updateInventory(this);
 	}
     },
     LATTE(2, 1, 1) {
 	@Override
-	public Item create() {
-	    Item item = new Item(this, getPrice());
-	    updateInventory(this, item);
-	    return item;
+	public void create() {
+	    updateInventory(this);
 	}
     };
 
@@ -65,18 +56,18 @@ public enum Drinks {
 	return milk;
     }
 
-    public abstract Item create();
+    public abstract void create();
 
-    static Set<Drinks> disponibles = new TreeSet<>();
+    private static Set<Drinks> disponibles = new TreeSet<>();
 
-    private static void updateInventory(Drinks drinks, Item item) {
+    private static void updateInventory(Drinks drinks) {
 	inventory.setBalance(inventory.getBalance() - drinks.getPrice());
 	inventory.setCoffee(inventory.getCoffee() - drinks.getCoffee());
 	inventory.setMilk(inventory.getMilk() - drinks.getMilk());
 	disponibles = new TreeSet<>();
     }
 
-    public Set<Drinks> disponibles() {
+    public static Set<Drinks> disponibles() {
 	for (Drinks drink : Drinks.values()) {
 	    if (inventory.getCoffee() >= drink.getCoffee() && inventory.getMilk() >= drink.getMilk()) {
 		disponibles.add(drink);

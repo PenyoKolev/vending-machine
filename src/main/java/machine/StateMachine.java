@@ -14,12 +14,12 @@ public enum StateMachine implements Machine {
     SELECT_ITEM {
 	@Override
 	public Drinks selectDrink(VendingMachine machine, Drinks drink) {
-	    if (drink.disponibles().contains(drink)) {
+	    if (Drinks.disponibles().contains(drink)) {
 		machine.setState(MAKE_ITEM);
 		actualDrink = drink;
-	    } else if(!drink.disponibles().isEmpty()) {
+	    } else if(!Drinks.disponibles().isEmpty()) {
 		System.out.printf("We are sorry! Out of %s\n", drink);
-		System.out.println(drink.disponibles());
+		System.out.println(Drinks.disponibles());
 		machine.setState(SELECT_ITEM);
 	    } else {
 		System.out.println("Out of Service!");

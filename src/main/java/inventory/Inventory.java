@@ -4,8 +4,8 @@ public enum Inventory {
     INSTANCE;
 
     private static final int SODA_SLOTS_NUMBER = 0;
-    private static final int COFFEE_TANK = 1;
-    private static final int MILK_TANK = 1;
+    private static final int COFFEE_TANK = 2;
+    private static final int MILK_TANK = 10;
 
     private int balance;
     private int slots;
