@@ -7,17 +7,17 @@ public class Item {
     private Drinks drink;
     private int price;
     
-    public Item (Drinks type, int price) {
-	this.setType(type);
+    public Item (Drinks drink, int price) {
+	this.setDrink(drink);
 	this.setPrice(price);
     }
 
-    public Drinks getType() {
+    public Drinks getDrink() {
 	return drink;
     }
 
-    public void setType(Drinks type) {
-	this.drink = type;
+    public void setDrink(Drinks drink) {
+	this.drink = drink;
     }
 
     public int getPrice() {
