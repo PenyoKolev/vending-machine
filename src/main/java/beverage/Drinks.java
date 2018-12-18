@@ -65,7 +65,6 @@ public enum Drinks {
     public abstract Item create();
 
     private static void updateInventory(Drinks drinks, Item item) {
-	inventory.setFunds(inventory.getFunds() + item.getPrice());
 	inventory.setBalance(inventory.getBalance() - item.getPrice());
 	inventory.setCoffee(inventory.getCoffee() - drinks.getCoffee());
 	inventory.setMilk(inventory.getMilk() - drinks.getMilk());

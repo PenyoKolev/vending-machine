@@ -10,7 +10,7 @@ public enum VendingMachine {
     private Inventory inventory;
 
     private VendingMachine() {
-	this.state = StateMachine.STAND_BY;
+	this.state = StateMachine.SERVICE;
 	this.inventory = Inventory.INSTANCE;
     }
 
@@ -51,7 +51,7 @@ public enum VendingMachine {
     }
 
     public void service() {
-	inventory.fillUpInventory(inventory);
+	state.service(this);
     }
     
     public void endService() {

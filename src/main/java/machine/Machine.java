@@ -4,18 +4,18 @@ import beverage.Drinks;
 
 public interface Machine {
 
-    public boolean putCoins(VendingMachine machine, int coins);
+    public int putCoins(VendingMachine machine, int coins);
 
-    public boolean returnCoins(VendingMachine machine);
+    public int returnCoins(VendingMachine machine);
 
-    public boolean selectDrink(VendingMachine machine, Drinks drink);
+    public Drinks selectDrink(VendingMachine machine, Drinks drink);
 
-    public boolean makeDrink(VendingMachine machine);
+    public Drinks makeDrink(VendingMachine machine);
 
-    public boolean takeDrink(VendingMachine machine);
+    public Drinks takeDrink(VendingMachine machine);
 
-    public boolean service(VendingMachine machine);
+    public void service(VendingMachine machine);
     
-    public boolean endService(VendingMachine machine);
+    public void endService(VendingMachine machine);
 
 }
