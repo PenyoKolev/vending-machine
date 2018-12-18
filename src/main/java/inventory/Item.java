@@ -3,11 +3,11 @@ package inventory;
 import beverage.Drinks;
 
 public class Item {
-    
+
     private Drinks drink;
     private int price;
-    
-    public Item (Drinks drink, int price) {
+
+    public Item(Drinks drink, int price) {
 	this.setDrink(drink);
 	this.setPrice(price);
     }
@@ -27,6 +27,7 @@ public class Item {
     public void setPrice(int price) {
 	this.price = price;
     }
+
     
-    //TODO hashCode & equals
+    // TODO hashCode & equals
 }

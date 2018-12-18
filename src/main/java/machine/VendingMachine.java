@@ -57,4 +57,5 @@ public enum VendingMachine {
     public void endService() {
 	state.endService(this);
     }
+   
 }

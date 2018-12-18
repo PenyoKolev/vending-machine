@@ -1,5 +1,8 @@
 package beverage;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 import inventory.Inventory;
 import inventory.Item;
 
@@ -64,9 +67,24 @@ public enum Drinks {
 
     public abstract Item create();
 
+    static Set<Drinks> disponibles = new TreeSet<>();
+
     private static void updateInventory(Drinks drinks, Item item) {
-	inventory.setBalance(inventory.getBalance() - item.getPrice());
+	inventory.setBalance(inventory.getBalance() - drinks.getPrice());
 	inventory.setCoffee(inventory.getCoffee() - drinks.getCoffee());
 	inventory.setMilk(inventory.getMilk() - drinks.getMilk());
+	disponibles = new TreeSet<>();
+    }
+
+    public Set<Drinks> disponibles() {
+	for (Drinks drink : Drinks.values()) {
+	    if (inventory.getCoffee() >= drink.getCoffee() && inventory.getMilk() >= drink.getMilk()) {
+		disponibles.add(drink);
+	    }
+	    if (inventory.getSlots() <= 0) {
+		disponibles.remove(SODA);
+	    }
+	}
+	return disponibles;
     }
 }

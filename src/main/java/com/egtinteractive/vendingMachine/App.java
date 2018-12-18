@@ -16,33 +16,41 @@ public class App {
 	
 	machine.service();
 	machine.endService();
+	
 	System.out.println(machine.getState());
 
-	Drinks drink = Drinks.SODA;
+	Drinks drink = Drinks.LATTE;
+	System.out.println(drink.disponibles());
+
 	machine.putCoins(2);
 	machine.putCoins(2);
 	System.out.println(machine.getState());
 
 	machine.selectDrink(drink);
 	System.out.println(machine.getState());
-	
+
 	machine.makeDrink();
 	System.out.println(machine.getState());
 
 	machine.takeDrink();
 	System.out.println(machine.getState());
+
+	machine.putCoins(3);
+	System.out.println(machine.getState());
+
+	machine.selectDrink(Drinks.CAPUCCINO);
+	System.out.println(machine.getState());
 	
-//	machine.putCoins(3);
-//	System.out.println(machine.getState());
-//	
-//	machine.selectDrink(Drinks.CAPUCCINO);
-//	System.out.println(machine.getState());
-//
-//	machine.makeDrink();
-//	System.out.println(machine.getState());
-//
-//	machine.takeDrink();
-//	System.out.println(machine.getState());
+//	machine.service();
+//	machine.endService();
+//	machine.putCoins(10);
+//	machine.selectDrink(Drinks.LATTE);
+
+	machine.makeDrink();
+	System.out.println(machine.getState());
+
+	machine.takeDrink();
+	System.out.println(machine.getState());
 
 	System.out.println();
 	System.out.printf("Inventory:\nbalance: %d\nslots: %d\ncoffee: %d\nmilk: %d", inventory.getBalance(), inventory.getSlots(), inventory.getCoffee(), inventory.getMilk());

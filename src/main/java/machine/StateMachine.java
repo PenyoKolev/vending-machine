@@ -1,7 +1,6 @@
 package machine;
 
 import beverage.Drinks;
-import inventory.Inventory;
 
 public enum StateMachine implements Machine {
     STAND_BY {
@@ -15,34 +14,28 @@ public enum StateMachine implements Machine {
     SELECT_ITEM {
 	@Override
 	public Drinks selectDrink(VendingMachine machine, Drinks drink) {
-	    Inventory inventory = machine.getInventory();
-	    if (drink == Drinks.SODA) {
-		if (inventory.getSlots() <= 0) {
-		    System.out.printf("We are sorry! Out of %s\n", drink);
-		    returnCoins(machine);
-		    machine.setState(SERVICE);
-		    return drink;
-		}
-	    }
-	    if (inventory.getCoffee() < drink.getCoffee() || inventory.getMilk() < drink.getMilk()) {
-		System.out.printf("We are sorry! Out of %s.\n", drink);
+	    if (drink.disponibles().contains(drink)) {
+		machine.setState(MAKE_ITEM);
+		actualDrink = drink;
+	    } else if(!drink.disponibles().isEmpty()) {
+		System.out.printf("We are sorry! Out of %s\n", drink);
+		System.out.println(drink.disponibles());
+		machine.setState(SELECT_ITEM);
+	    } else {
+		System.out.println("Out of Service!");
 		returnCoins(machine);
 		machine.setState(SERVICE);
-		return drink;
 	    }
-	    machine.setState(MAKE_ITEM);
-	    actualDrink = drink;
 	    return drink;
 	}
-	// TODO check if enough inventory ? MAKE_ITEM : SERVICE(or SELECT_ITEM)
-	
+
 	@Override
 	public int putCoins(VendingMachine machine, int coins) {
 	    machine.getInventory().setBalance(machine.getInventory().getBalance() + coins);
 	    machine.setState(SELECT_ITEM);
 	    return coins;
 	}
-	
+
 	@Override
 	public int returnCoins(VendingMachine machine) {
 	    int coins = machine.getInventory().getBalance();
@@ -65,14 +58,14 @@ public enum StateMachine implements Machine {
 	    machine.setState(TAKE_ITEM);
 	    return actualDrink;
 	}
-	
+
 	@Override
 	public int putCoins(VendingMachine machine, int coins) {
 	    machine.getInventory().setBalance(machine.getInventory().getBalance() + coins);
 	    machine.setState(MAKE_ITEM);
 	    return coins;
 	}
-	
+
 	@Override
 	public int returnCoins(VendingMachine machine) {
 	    int coins = machine.getInventory().getBalance();
@@ -148,5 +141,4 @@ public enum StateMachine implements Machine {
     @Override
     public void endService(VendingMachine machine) {
     }
-
 }
