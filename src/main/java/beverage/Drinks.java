@@ -33,6 +33,7 @@ public enum Drinks {
     };
 
     static Inventory inventory = Inventory.INSTANCE;
+    private static Set<Drinks> disponibles = new TreeSet<>();
 
     private final int price;
     private final int coffee;
@@ -58,15 +59,6 @@ public enum Drinks {
 
     public abstract void create();
 
-    private static Set<Drinks> disponibles = new TreeSet<>();
-
-    private static void updateInventory(Drinks drinks) {
-	inventory.setBalance(inventory.getBalance() - drinks.getPrice());
-	inventory.setCoffee(inventory.getCoffee() - drinks.getCoffee());
-	inventory.setMilk(inventory.getMilk() - drinks.getMilk());
-	disponibles = new TreeSet<>();
-    }
-
     public static Set<Drinks> disponibles() {
 	for (Drinks drink : Drinks.values()) {
 	    if (inventory.getCoffee() >= drink.getCoffee() && inventory.getMilk() >= drink.getMilk()) {
@@ -77,5 +69,12 @@ public enum Drinks {
 	    }
 	}
 	return disponibles;
+    }
+
+    private static void updateInventory(Drinks drinks) {
+	inventory.setBalance(inventory.getBalance() - drinks.getPrice());
+	inventory.setCoffee(inventory.getCoffee() - drinks.getCoffee());
+	inventory.setMilk(inventory.getMilk() - drinks.getMilk());
+	disponibles = new TreeSet<>();
     }
 }

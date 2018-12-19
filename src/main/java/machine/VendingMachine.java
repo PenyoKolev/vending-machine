@@ -3,13 +3,12 @@ package machine;
 import beverage.Drinks;
 import inventory.Inventory;
 
-public enum VendingMachine {
-    INSTANCE;
+public class VendingMachine {
 
     private StateMachine state;
     private Inventory inventory;
 
-    private VendingMachine() {
+    public VendingMachine() {
 	this.state = StateMachine.SERVICE;
 	this.inventory = Inventory.INSTANCE;
     }
@@ -25,29 +24,25 @@ public enum VendingMachine {
     public Inventory getInventory() {
 	return inventory;
     }
-
-    public void setInventory(Inventory inventory) {
-	this.inventory = inventory;
+    
+    public int putCoins(int coins) {
+	return state.putCoins(this, coins);
     }
     
-    public void putCoins(int coins) {
-	state.putCoins(this, coins);
+    public int returnCoins() {
+	return state.returnCoins(this);
     }
     
-    public void returnCoins() {
-	state.returnCoins(this);
+    public Drinks selectDrink(Drinks drink) {
+	return state.selectDrink(this, drink);
     }
     
-    public void selectDrink(Drinks drink) {
-	state.selectDrink(this, drink);
-    }
-    
-    public void makeDrink() {
-	state.makeDrink(this);
+    public Drinks makeDrink() {
+	return state.makeDrink(this);
     }
 
-    public void takeDrink() {
-	state.takeDrink(this);
+    public Drinks takeDrink() {
+	return state.takeDrink(this);
     }
 
     public void service() {

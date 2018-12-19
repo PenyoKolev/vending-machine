@@ -107,7 +107,7 @@ public enum StateMachine implements Machine {
 	}
     };
 
-    static Drinks actualDrink = null;
+    private static Drinks actualDrink = null;
 
     @Override
     public int putCoins(VendingMachine machine, int coins) {

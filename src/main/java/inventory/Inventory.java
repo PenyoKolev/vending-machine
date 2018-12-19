@@ -3,9 +3,9 @@ package inventory;
 public enum Inventory {
     INSTANCE;
 
-    private static final int SODA_SLOTS_NUMBER = 0;
+    private static final int SODA_SLOTS_NUMBER = 1;
     private static final int COFFEE_TANK = 2;
-    private static final int MILK_TANK = 10;
+    private static final int MILK_TANK = 2;
 
     private int balance;
     private int slots;
@@ -13,7 +13,6 @@ public enum Inventory {
     private int milk;
 
     private Inventory() {
-	setBalance(balance);
 	setSlots(slots);
 	setCoffee(coffee);
 	setMilk(milk);

@@ -9,7 +9,7 @@ public class App {
     public static void main( String[] args ){
 	
 	
-	VendingMachine machine = VendingMachine.INSTANCE;
+	VendingMachine machine = new VendingMachine();
 	Inventory inventory = machine.getInventory();
 	
 	System.out.println(machine.getState());
