@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 import com.egtinteractive.vendingMachine.Provider;
 
+import inventory.Inventory;
 import machine.VendingMachine;
 
 public class StandByTest {
@@ -31,13 +32,14 @@ public class StandByTest {
     @Test(dataProvider = "vendingMachine")
     public void putCoinsShouldAddCoinsToBalance(VendingMachine machine) {
 	// Arrange
-	int balance = machine.getInventory().getBalance();
+	Inventory inventory = Inventory.INSTANCE;
+	int balance = inventory.getBalance();
 	int coins = 10;
 
 	// Act
 	machine.putCoins(coins);
 
 	// Assert
-	assertEquals(machine.getInventory().getBalance(), balance + coins);
+	assertEquals(inventory.getBalance(), balance + coins);
     }
 }

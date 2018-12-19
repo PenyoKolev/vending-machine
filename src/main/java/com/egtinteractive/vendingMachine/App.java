@@ -10,7 +10,7 @@ public class App {
 	
 	
 	VendingMachine machine = new VendingMachine();
-	Inventory inventory = machine.getInventory();
+	Inventory inventory = Inventory.INSTANCE;
 	
 	System.out.println(machine.getState());
 	
@@ -37,16 +37,20 @@ public class App {
 
 	machine.putCoins(3);
 	System.out.println(machine.getState());
-	System.out.println(Drinks.disponibles());
 
 	machine.selectDrink(Drinks.CAPUCCINO);
 	System.out.println(machine.getState());
 	
-	machine.makeDrink();
+	machine.selectDrink(Drinks.SODA);
 	System.out.println(machine.getState());
 
+	machine.makeDrink();
+	System.out.println(machine.getState());
+	
 	machine.takeDrink();
 	System.out.println(machine.getState());
+	
+	machine.service();
 
 	System.out.println();
 	System.out.printf("Inventory:\nbalance: %d\nslots: %d\ncoffee: %d\nmilk: %d", inventory.getBalance(), inventory.getSlots(), inventory.getCoffee(), inventory.getMilk());

@@ -1,16 +1,13 @@
 package machine;
 
 import beverage.Drinks;
-import inventory.Inventory;
 
 public class VendingMachine {
 
     private StateMachine state;
-    private Inventory inventory;
 
     public VendingMachine() {
 	this.state = StateMachine.SERVICE;
-	this.inventory = Inventory.INSTANCE;
     }
 
     public StateMachine getState() {
@@ -19,10 +16,6 @@ public class VendingMachine {
 
     public void setState(StateMachine state) {
 	this.state = state;
-    }
-
-    public Inventory getInventory() {
-	return inventory;
     }
     
     public int putCoins(int coins) {

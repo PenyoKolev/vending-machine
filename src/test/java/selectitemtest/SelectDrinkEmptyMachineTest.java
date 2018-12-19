@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import com.egtinteractive.vendingMachine.Provider;
 
 import beverage.Drinks;
+import inventory.Inventory;
 import machine.VendingMachine;
 
 public class SelectDrinkEmptyMachineTest {
@@ -19,11 +20,14 @@ public class SelectDrinkEmptyMachineTest {
 
     @Test(dataProvider = "vendingMachine")
     public void selectDrinkShouldReturnMoneyIfMachineEmpty(VendingMachine machine) {
+	// Arrange
+	Inventory inventory = Inventory.INSTANCE;
+	
 	// Act
 	machine.selectDrink(Drinks.CAPUCCINO);
 
 	// Assert
-	assertEquals(machine.getInventory().getBalance(), 0);
+	assertEquals(inventory.getBalance(), 0);
     }
     
     @Test(dataProvider = "vendingMachine")

@@ -1,4 +1,4 @@
-package servicetest;
+package standbytest;
 
 import static org.testng.Assert.assertEquals;
 
@@ -11,10 +11,10 @@ import inventory.Inventory;
 import machine.VendingMachine;
 
 public class ServiceTest {
-  
+    
     @DataProvider(name = "vendingMachine")
     public Object[][] getData() {
-	return Provider.serviceMachine();
+	return Provider.standByMachine();
     }
 
     @Test(dataProvider = "vendingMachine")
@@ -29,5 +29,14 @@ public class ServiceTest {
 	assertEquals(inventory.getSlots(), 1);
 	assertEquals(inventory.getCoffee(), 2);
 	assertEquals(inventory.getMilk(), 2);
+    }
+    
+    @Test(dataProvider = "vendingMachine")
+    public void serviceShouldChangeStateToSERVICE(VendingMachine machine) {
+	// Act
+	machine.service();
+
+	// Assert
+	assertEquals(machine.getState().toString(), "SERVICE");
     }
 }

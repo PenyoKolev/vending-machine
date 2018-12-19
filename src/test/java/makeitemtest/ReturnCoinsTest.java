@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 import com.egtinteractive.vendingMachine.Provider;
 
+import inventory.Inventory;
 import machine.VendingMachine;
 
 public class ReturnCoinsTest {
@@ -18,11 +19,13 @@ public class ReturnCoinsTest {
 
     @Test(dataProvider = "vendingMachine")
     public void returnCoinsShouldReturnAllCoins(VendingMachine machine) {
+	//Arrange
+	Inventory inventory = Inventory.INSTANCE;
 	// Act
 	machine.returnCoins();
 
 	// Assert
-	assertEquals(machine.getInventory().getBalance(), 0);
+	assertEquals(inventory.getBalance(), 0);
     }
     
     @Test(dataProvider = "vendingMachine")
