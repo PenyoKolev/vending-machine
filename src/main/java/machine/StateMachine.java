@@ -7,11 +7,17 @@ public enum StateMachine implements Machine {
     STAND_BY {
 	@Override
 	public int putCoins(VendingMachine machine, int coins) {
+	    /*
+	     * [WARNING] author ivailozd
+	     * 
+	     * What if negative value is inserted?
+	     * 
+	     */
 	    inventory.setBalance(inventory.getBalance() + coins);
 	    machine.setState(SELECT_ITEM);
 	    return coins;
 	}
-	
+
 	@Override
 	public void service(VendingMachine machine) {
 	    inventory.fillUpInventory();
@@ -24,7 +30,7 @@ public enum StateMachine implements Machine {
 	    if (Drinks.disponibles().contains(drink)) {
 		machine.setState(MAKE_ITEM);
 		actualDrink = drink;
-	    } else if(!Drinks.disponibles().isEmpty()) {
+	    } else if (!Drinks.disponibles().isEmpty()) {
 		System.out.printf("We are sorry! Out of %s\n", drink);
 		System.out.println(Drinks.disponibles());
 		machine.setState(SELECT_ITEM);
@@ -40,6 +46,12 @@ public enum StateMachine implements Machine {
 	public int putCoins(VendingMachine machine, int coins) {
 	    inventory.setBalance(inventory.getBalance() + coins);
 	    machine.setState(SELECT_ITEM);
+	    /*
+	     * [WARNING] author ivailozd
+	     * 
+	     * What is the point of returning the same value?
+	     * 
+	     */
 	    return coins;
 	}
 
@@ -47,6 +59,12 @@ public enum StateMachine implements Machine {
 	public int returnCoins(VendingMachine machine) {
 	    int coins = inventory.getBalance();
 	    System.out.printf("%d coins returned!\n", coins);
+	    /*
+	     * [WARNING] author ivailozd
+	     * 
+	     * Why is this? Where is the profit?
+	     * 
+	     */
 	    inventory.setBalance(0);
 	    machine.setState(STAND_BY);
 	    return coins;
@@ -55,6 +73,12 @@ public enum StateMachine implements Machine {
     MAKE_ITEM {
 	@Override
 	public Drinks makeDrink(VendingMachine machine) {
+	    /*
+	     * [WARNING] author ivailozd
+	     * 
+	     * Validations should be made as soon as possible
+	     * 
+	     */
 	    if (inventory.getBalance() < actualDrink.getPrice()) {
 		System.out.printf("The price of %s is %d.\nPlease add %d.\n", actualDrink, actualDrink.getPrice(),
 			actualDrink.getPrice() - inventory.getBalance());
@@ -63,9 +87,22 @@ public enum StateMachine implements Machine {
 	    }
 	    actualDrink.create();
 	    machine.setState(TAKE_ITEM);
+
+	    /*
+	     * [WARNING] author ivailozd
+	     * 
+	     * If I got the drink here, why would I call takeDrink()?
+	     * 
+	     */
 	    return actualDrink;
 	}
 
+	/*
+	 * [WARNING] author ivailozd
+	 * 
+	 * Why does the machine accept money in MAKE_ITEM state?
+	 * 
+	 */
 	@Override
 	public int putCoins(VendingMachine machine, int coins) {
 	    inventory.setBalance(inventory.getBalance() + coins);
@@ -92,6 +129,12 @@ public enum StateMachine implements Machine {
 	    return actualDrink;
 	}
 
+	/*
+	 * [WARNING] author ivailozd
+	 * 
+	 * The item has been already sold, the machine can't return the money!
+	 * 
+	 */
 	@Override
 	public int returnCoins(VendingMachine machine) {
 	    int coins = inventory.getBalance();
@@ -114,8 +157,21 @@ public enum StateMachine implements Machine {
 	}
     };
 
+    /*
+     * [WARNING] author ivailozd
+     * 
+     * Why are these static fields?
+     * 
+     */
     private static Inventory inventory = Inventory.INSTANCE;
     private static Drinks actualDrink = null;
+
+    /*
+     * [WARNING] author ivailozd
+     * 
+     * Every state should implements its logic for the methods below
+     * 
+     */
 
     @Override
     public int putCoins(VendingMachine machine, int coins) {

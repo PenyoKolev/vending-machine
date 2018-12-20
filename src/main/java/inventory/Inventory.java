@@ -1,12 +1,30 @@
 package inventory;
 
+/*
+     * [WARNING] author ivailozd
+     * 
+     * Why is this an enumeration?
+     * 
+     */
 public enum Inventory {
     INSTANCE;
 
+    /*
+     * [WARNING] author ivailozd
+     * 
+     * What is a slot?
+     * 
+     */
     private static final int SODA_SLOTS_NUMBER = 1;
     private static final int COFFEE_TANK = 2;
     private static final int MILK_TANK = 2;
 
+    /*
+     * [WARNING] author ivailozd
+     * 
+     * Is this Inventory's responsibility?
+     * 
+     */
     private int balance;
     private int slots;
     private int coffee;

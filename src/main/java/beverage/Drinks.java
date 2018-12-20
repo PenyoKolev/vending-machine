@@ -32,6 +32,12 @@ public enum Drinks {
 	}
     };
 
+    /*
+     * [WARNING] author ivailozd
+     * 
+     * Why are these static fields?
+     * 
+     */
     static Inventory inventory = Inventory.INSTANCE;
     private static Set<Drinks> disponibles = new TreeSet<>();
 
@@ -57,6 +63,12 @@ public enum Drinks {
 	return milk;
     }
 
+    /*
+     * [WARNING] author ivailozd
+     * 
+     * Is this Drink's responsibility?
+     * 
+     */
     public abstract void create();
 
     public static Set<Drinks> disponibles() {
@@ -71,6 +83,12 @@ public enum Drinks {
 	return disponibles;
     }
 
+    /*
+     * [WARNING] author ivailozd
+     * 
+     * Is this Drink's responsibility?
+     * 
+     */
     private static void updateInventory(Drinks drinks) {
 	inventory.setBalance(inventory.getBalance() - drinks.getPrice());
 	inventory.setCoffee(inventory.getCoffee() - drinks.getCoffee());
