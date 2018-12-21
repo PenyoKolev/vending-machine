@@ -1,6 +1,7 @@
 package machine;
 
 import beverage.Drinks;
+import machine.VendingMachine.Ingredients;
 
 public interface Machine {
 
@@ -17,4 +18,9 @@ public interface Machine {
   public void service(VendingMachine machine);
 
   public void endService(VendingMachine machine);
+  
+  public void addProduct(VendingMachine machine, String name, int price, int quantity);
+  
+  public void addProduct(VendingMachine machine, Ingredients ingredients, int quantity);
+
 }

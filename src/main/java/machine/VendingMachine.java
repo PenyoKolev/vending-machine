@@ -1,7 +1,5 @@
 package machine;
 
-import java.util.Set;
-import java.util.TreeSet;
 import beverage.Drinks;
 import inventory.Inventory;
 
@@ -12,15 +10,19 @@ import inventory.Inventory;
  *
  */
 public class VendingMachine { // add inventory to constructor
-  
-//  private static final int SODA_SLOTS_NUMBER = 10;  refactor SODA to Cold Drinks with options to add different drinks
-  private static final int COFFEE_TANK = 10;
-  private static final int MILK_TANK = 10;
+
+  static final int DEFAULT_SIZE = 10;
+  static final int COFFEE_TANK = 10;
+  static final int MILK_TANK = 10;
 
   private StateMachine state;
   private Inventory inventory;
-  private int balance; // should implement it here
-  private Set<Drinks> disponibles;
+  private int balance;
+
+  public enum Ingredients {
+    COFFEE,
+    MILK
+  }
 
   public VendingMachine() {
     this.state = StateMachine.SERVICE;
@@ -28,34 +30,21 @@ public class VendingMachine { // add inventory to constructor
     this.balance = 0;
   }
 
-  public Set<Drinks> disponibles() {
-    for (Drinks drink : Drinks.values()) {
-      if (inventory.getCoffee() >= drink.getCoffee() && inventory.getMilk() >= drink.getMilk()) {
-//        disponibles.add(drink);
-      }
-//      if (inventory.getSlots() <= 0) {        refactor SODA to Cold Drinks with options to add different drinks
-//        disponibles.remove(SODA); // should refactor method for SODAs
-//      }
-    }
-    return disponibles;
-  }
-
   public void updateInventory(Drinks drinks) {
-    setBalance(getBalance() - drinks.getPrice());
-    inventory.setCoffee(inventory.getCoffee() - drinks.getCoffee());
-    inventory.setMilk(inventory.getMilk() - drinks.getMilk());
-    disponibles = new TreeSet<>();
-  }
-  
-  public void fillUpInventory() {
-//    inventory.setSlots(SODA_SLOTS_NUMBER);
-    inventory.setCoffee(COFFEE_TANK);
-    inventory.setMilk(MILK_TANK);
+    //    setBalance(getBalance() - drinks.getPrice());
+    //    inventory.setCoffee(inventory.getCoffee() - drinks.getCoffee());
+    //    inventory.setMilk(inventory.getMilk() - drinks.getMilk());
   }
 
-  private void create() {
-    // TODO should implement it here
+  public void fillUpInventory() {
+    //    inventory.setSlots.size(SODA_SLOTS_NUMBER);
+    //    inventory.setCoffee(COFFEE_TANK);
+    //    inventory.setMilk(MILK_TANK);
   }
+
+  //  private void create() {
+  //    // TODO should implement it here
+  //  }
 
   public StateMachine getState() {
     return state;
@@ -113,5 +102,13 @@ public class VendingMachine { // add inventory to constructor
 
   public void endService() {
     state.endService(this);
+  }
+
+  public void addProduct(String name, int price, int quantity) {
+    state.addProduct(this, name, price, quantity);
+  }
+
+  public void addProduct(Ingredients ingredients, int quantity) {
+    state.addProduct(this, ingredients, quantity);
   }
 }

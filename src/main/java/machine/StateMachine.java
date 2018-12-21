@@ -1,6 +1,8 @@
 package machine;
 
 import beverage.Drinks;
+import beverage.Products;
+import machine.VendingMachine.Ingredients;
 
 public enum StateMachine implements Machine {
   STAND_BY {
@@ -26,18 +28,18 @@ public enum StateMachine implements Machine {
   SELECT_ITEM {
     @Override
     public Drinks selectDrink(VendingMachine machine, Drinks drink) {
-      if (machine.disponibles().contains(drink)) {
-        machine.setState(MAKE_ITEM);
-        actualDrink = drink;
-      } else if (!machine.disponibles().isEmpty()) {
-        System.out.printf("We are sorry! Out of %s\n", drink);
-        System.out.println(machine.disponibles());
-        machine.setState(SELECT_ITEM);
-      } else {
-        System.out.println("Out of Service!");
-        returnCoins(machine);
-        machine.setState(SERVICE);
-      }
+      //      if (machine.disponibles().contains(drink)) {
+      //        machine.setState(MAKE_ITEM);
+      //        actualDrink = drink;
+      //      } else if (!machine.disponibles().isEmpty()) {
+      //        System.out.printf("We are sorry! Out of %s\n", drink);
+      //        System.out.println(machine.disponibles());
+      //        machine.setState(SELECT_ITEM);
+      //      } else {
+      //        System.out.println("Out of Service!");
+      //        returnCoins(machine);
+      //        machine.setState(SERVICE);
+      //      }
       return drink;
     }
 
@@ -152,6 +154,37 @@ public enum StateMachine implements Machine {
     }
 
     @Override
+    public void addProduct(VendingMachine machine, String name, int price, int quantity) {
+      Products product = new Products(name, price);
+      if (machine.getInventory().getProducts().size() + quantity > VendingMachine.DEFAULT_SIZE) {
+        System.out.println("No free space!");
+        return;
+      }
+      for (int i = 0; i < quantity; i++) {
+        machine.getInventory().getProducts().add(product);
+      }
+    }
+
+    @Override
+    public void addProduct(VendingMachine machine, Ingredients ingredients, int quantity) {
+
+      if (ingredients == Ingredients.COFFEE) {
+        if (machine.getInventory().getCoffee() + quantity > VendingMachine.COFFEE_TANK) {
+          System.out.println("Not enough space");
+        } else {
+          machine.getInventory().setCoffee(quantity);
+        }
+      }
+      if (ingredients == Ingredients.MILK) {
+        if (machine.getInventory().getMilk() + quantity > VendingMachine.MILK_TANK) {
+          System.out.println("Not enough space");
+        } else {
+          machine.getInventory().setMilk(quantity);
+        }
+      }
+    }
+
+    @Override
     public void endService(VendingMachine machine) {
       machine.setState(STAND_BY);
     }
@@ -203,4 +236,10 @@ public enum StateMachine implements Machine {
 
   @Override
   public void endService(VendingMachine machine) {}
+
+  @Override
+  public void addProduct(VendingMachine machine, String name, int price, int quantity) {}
+
+  @Override
+  public void addProduct(VendingMachine machine, Ingredients ingredients, int quantity) {}
 }

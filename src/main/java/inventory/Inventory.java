@@ -1,24 +1,28 @@
 package inventory;
 
+import java.util.ArrayList;
+import java.util.List;
+import beverage.Products;
+
 public class Inventory {
 
-//  private int slots;      // refactor SODA to Cold Drinks with options to add different drinks
+  private List<Products> products;
   private int coffee;
   private int milk;
 
   public Inventory() {
-//    setSlots(slots);
+    setProducts(new ArrayList<>());
     setCoffee(coffee);
     setMilk(milk);
   }
 
-//  public int getSlots() {
-//    return slots;
-//  }
-//
-//  public void setSlots(int slots) {
-//    this.slots = slots;
-//  }
+  public List<Products> getProducts() {
+    return products;
+  }
+
+  public void setProducts(List<Products> products) {
+    this.products = products;
+  }
 
   public int getCoffee() {
     return coffee;

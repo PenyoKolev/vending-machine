@@ -1,9 +1,6 @@
 package beverage;
 
-public enum Drinks {    
-//  SODA(3, 0, 0) {
-//    
-//  },     // refactor SODA to Cold Drinks with options to add different drinks
+public enum Drinks {         
   AMERICANO(2, 2, 0) {
     
   },
@@ -13,7 +10,6 @@ public enum Drinks {
   LATTE(2, 1, 1) {
     
   };
-  
   
   private final int price;
   private final int coffee;
