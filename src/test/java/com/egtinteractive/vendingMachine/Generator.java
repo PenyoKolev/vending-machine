@@ -43,7 +43,7 @@ public class Generator {
 	machine.makeDrink();
 	machine.takeDrink();
 	machine.putCoins(10);
-	machine.selectDrink(Drinks.SODA);
+//	machine.selectDrink(Drinks.SODA);
 	machine.makeDrink();
 	machine.takeDrink();
 	machine.putCoins(10);

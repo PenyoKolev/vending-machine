@@ -1,98 +1,39 @@
 package beverage;
 
-import java.util.Set;
-import java.util.TreeSet;
+public enum Drinks {    
+//  SODA(3, 0, 0) {
+//    
+//  },     // refactor SODA to Cold Drinks with options to add different drinks
+  AMERICANO(2, 2, 0) {
+    
+  },
+  CAPUCCINO(3, 1, 2) {
+    
+  },
+  LATTE(2, 1, 1) {
+    
+  };
+  
+  
+  private final int price;
+  private final int coffee;
+  private final int milk;
 
-import inventory.Inventory;
+  private Drinks(int price, int coffee, int milk) {
+    this.price = price;
+    this.coffee = coffee;
+    this.milk = milk;
+  }
 
-public enum Drinks {
-    SODA(3, 0, 0) {
-	@Override
-	public void create() {
-	    inventory.setSlots(inventory.getSlots() - 1);
-	    updateInventory(this);
-	}
-    },
-    AMERICANO(2, 2, 0) {
-	@Override
-	public void create() {
-	    updateInventory(this);
-	}
-    },
-    CAPUCCINO(3, 1, 2) {
-	@Override
-	public void create() {
-	    updateInventory(this);
-	}
-    },
-    LATTE(2, 1, 1) {
-	@Override
-	public void create() {
-	    updateInventory(this);
-	}
-    };
+  public int getPrice() {
+    return price;
+  }
 
-    /*
-     * [WARNING] author ivailozd
-     * 
-     * Why are these static fields?
-     * 
-     */
-    static Inventory inventory = Inventory.INSTANCE;
-    private static Set<Drinks> disponibles = new TreeSet<>();
+  public int getCoffee() {
+    return coffee;
+  }
 
-    private final int price;
-    private final int coffee;
-    private final int milk;
-
-    private Drinks(int price, int coffee, int milk) {
-	this.price = price;
-	this.coffee = coffee;
-	this.milk = milk;
-    }
-
-    public int getPrice() {
-	return price;
-    }
-
-    public int getCoffee() {
-	return coffee;
-    }
-
-    public int getMilk() {
-	return milk;
-    }
-
-    /*
-     * [WARNING] author ivailozd
-     * 
-     * Is this Drink's responsibility?
-     * 
-     */
-    public abstract void create();
-
-    public static Set<Drinks> disponibles() {
-	for (Drinks drink : Drinks.values()) {
-	    if (inventory.getCoffee() >= drink.getCoffee() && inventory.getMilk() >= drink.getMilk()) {
-		disponibles.add(drink);
-	    }
-	    if (inventory.getSlots() <= 0) {
-		disponibles.remove(SODA);
-	    }
-	}
-	return disponibles;
-    }
-
-    /*
-     * [WARNING] author ivailozd
-     * 
-     * Is this Drink's responsibility?
-     * 
-     */
-    private static void updateInventory(Drinks drinks) {
-	inventory.setBalance(inventory.getBalance() - drinks.getPrice());
-	inventory.setCoffee(inventory.getCoffee() - drinks.getCoffee());
-	inventory.setMilk(inventory.getMilk() - drinks.getMilk());
-	disponibles = new TreeSet<>();
-    }
+  public int getMilk() {
+    return milk;
+  }
 }

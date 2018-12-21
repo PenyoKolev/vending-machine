@@ -12,22 +12,22 @@ import machine.VendingMachine;
 
 public class ServiceTest {
   
-    @DataProvider(name = "vendingMachine")
-    public Object[][] getData() {
-	return Provider.serviceMachine();
-    }
-
-    @Test(dataProvider = "vendingMachine")
-    public void serviceShouldFillUpInventory(VendingMachine machine) {
-	// Arrange
-	Inventory inventory = Inventory.INSTANCE;
-
-	// Act
-	machine.service();
-
-	// Assert
-	assertEquals(inventory.getSlots(), 1);
-	assertEquals(inventory.getCoffee(), 2);
-	assertEquals(inventory.getMilk(), 2);
-    }
+//    @DataProvider(name = "vendingMachine")
+//    public Object[][] getData() {
+//	return Provider.serviceMachine();
+//    }
+//
+//    @Test(dataProvider = "vendingMachine")
+//    public void serviceShouldFillUpInventory(VendingMachine machine) {
+//	// Arrange
+//	Inventory inventory = Inventory.INSTANCE;
+//
+//	// Act
+//	machine.service();
+//
+//	// Assert
+//	assertEquals(inventory.getSlots(), 1);
+//	assertEquals(inventory.getCoffee(), 2);
+//	assertEquals(inventory.getMilk(), 2);
+//    }
 }

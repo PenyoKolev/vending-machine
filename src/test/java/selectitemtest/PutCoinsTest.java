@@ -12,22 +12,22 @@ import machine.VendingMachine;
 
 public class PutCoinsTest {
     
-    @DataProvider(name = "vendingMachine")
-    public Object[][] getData() {
-	return Provider.selectItemMachine();
-    }
-
-    @Test(dataProvider = "vendingMachine")
-    public void putCoinsShouldAddCoinsToBalance(VendingMachine machine) {
-	// Arrange
-	Inventory inventory = Inventory.INSTANCE;
-	int balance = inventory.getBalance();
-	int coins = 10;
-
-	// Act
-	machine.putCoins(coins);
-
-	// Assert
-	assertEquals(inventory.getBalance(), balance + coins);
-    }
+//    @DataProvider(name = "vendingMachine")
+//    public Object[][] getData() {
+//	return Provider.selectItemMachine();
+//    }
+//
+//    @Test(dataProvider = "vendingMachine")
+//    public void putCoinsShouldAddCoinsToBalance(VendingMachine machine) {
+//	// Arrange
+//	Inventory inventory = Inventory.INSTANCE;
+//	int balance = inventory.getBalance();
+//	int coins = 10;
+//
+//	// Act
+//	machine.putCoins(coins);
+//
+//	// Assert
+//	assertEquals(inventory.getBalance(), balance + coins);
+//    }
 }

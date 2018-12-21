@@ -1,77 +1,38 @@
 package inventory;
 
-/*
-     * [WARNING] author ivailozd
-     * 
-     * Why is this an enumeration?
-     * 
-     */
-public enum Inventory {
-    INSTANCE;
+public class Inventory {
 
-    /*
-     * [WARNING] author ivailozd
-     * 
-     * What is a slot?
-     * 
-     */
-    private static final int SODA_SLOTS_NUMBER = 1;
-    private static final int COFFEE_TANK = 2;
-    private static final int MILK_TANK = 2;
+//  private int slots;      // refactor SODA to Cold Drinks with options to add different drinks
+  private int coffee;
+  private int milk;
 
-    /*
-     * [WARNING] author ivailozd
-     * 
-     * Is this Inventory's responsibility?
-     * 
-     */
-    private int balance;
-    private int slots;
-    private int coffee;
-    private int milk;
+  public Inventory() {
+//    setSlots(slots);
+    setCoffee(coffee);
+    setMilk(milk);
+  }
 
-    private Inventory() {
-	setSlots(slots);
-	setCoffee(coffee);
-	setMilk(milk);
-    }
+//  public int getSlots() {
+//    return slots;
+//  }
+//
+//  public void setSlots(int slots) {
+//    this.slots = slots;
+//  }
 
-    public void fillUpInventory() {
-	setBalance(0);
-	setSlots(SODA_SLOTS_NUMBER);
-	setCoffee(COFFEE_TANK);
-	setMilk(MILK_TANK);
-    }
+  public int getCoffee() {
+    return coffee;
+  }
 
-    public int getBalance() {
-	return balance;
-    }
+  public void setCoffee(int coffee) {
+    this.coffee = coffee;
+  }
 
-    public void setBalance(int balance) {
-	this.balance = balance;
-    }
+  public int getMilk() {
+    return milk;
+  }
 
-    public int getSlots() {
-	return slots;
-    }
-
-    public void setSlots(int slots) {
-	this.slots = slots;
-    }
-
-    public int getCoffee() {
-	return coffee;
-    }
-
-    public void setCoffee(int coffee) {
-	this.coffee = coffee;
-    }
-
-    public int getMilk() {
-	return milk;
-    }
-
-    public void setMilk(int milk) {
-	this.milk = milk;
-    }
+  public void setMilk(int milk) {
+    this.milk = milk;
+  }
 }
