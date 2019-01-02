@@ -1,16 +1,10 @@
 package beverage;
 
-public enum Drinks {         
-  AMERICANO(2, 2, 0) {
-    
-  },
-  CAPUCCINO(3, 1, 2) {
-    
-  },
-  LATTE(2, 1, 1) {
-    
-  };
-  
+public enum Drinks {
+  AMERICANO(2, 2, 0),
+  CAPUCCINO(3, 1, 2),
+  LATTE(2, 1, 1);
+
   private final int price;
   private final int coffee;
   private final int milk;

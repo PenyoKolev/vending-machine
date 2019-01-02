@@ -1,26 +1,29 @@
 package machine;
 
 import beverage.Drinks;
+import beverage.Products;
 import machine.VendingMachine.Ingredients;
 
 public interface Machine {
 
-  public int putCoins(VendingMachine machine, int coins);
+  public int putCoins(int coins);
 
-  public int returnCoins(VendingMachine machine);
+  public int returnCoins();
 
-  public Drinks selectDrink(VendingMachine machine, Drinks drink);
-
-  public Drinks makeDrink(VendingMachine machine);
-
-  public Drinks takeDrink(VendingMachine machine);
-
-  public void service(VendingMachine machine);
-
-  public void endService(VendingMachine machine);
+  public Drinks selectItem(Drinks drink);
   
-  public void addProduct(VendingMachine machine, String name, int price, int quantity);
+  public Products selectItem(String productName);
   
-  public void addProduct(VendingMachine machine, Ingredients ingredients, int quantity);
+  public Drinks makeDrink();
+
+  public Drinks takeDrink();
+
+  public void service();
+
+  public void endService();
+
+  public void addProduct(String name, int price, int quantity);
+
+  public void addProduct(Ingredients ingredients, int quantity);
 
 }

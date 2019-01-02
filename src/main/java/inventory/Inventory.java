@@ -9,11 +9,13 @@ public class Inventory {
   private List<Products> products;
   private int coffee;
   private int milk;
+  private int funds;
 
   public Inventory() {
     setProducts(new ArrayList<>());
     setCoffee(coffee);
     setMilk(milk);
+    setFunds(funds);
   }
 
   public List<Products> getProducts() {
@@ -38,5 +40,13 @@ public class Inventory {
 
   public void setMilk(int milk) {
     this.milk = milk;
+  }
+
+  public int getFunds() {
+    return funds;
+  }
+
+  public void setFunds(int funds) {
+    this.funds = funds;
   }
 }

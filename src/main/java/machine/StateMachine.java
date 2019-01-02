@@ -4,57 +4,81 @@ import beverage.Drinks;
 import beverage.Products;
 import machine.VendingMachine.Ingredients;
 
-public enum StateMachine implements Machine {
+public enum StateMachine {
   STAND_BY {
     @Override
     public int putCoins(VendingMachine machine, int coins) {
-      /*
-       * [WARNING] author ivailozd
-       *
-       * What if negative value is inserted?
-       *
-       */
-      machine.setBalance(machine.getBalance() + coins);
-      machine.setState(SELECT_ITEM);
-      return coins;
+      if (coins < 0) {
+        System.out.println("Negative coins are not accepted!");
+        machine.setState(STAND_BY);
+        return coins;
+      } else {
+        machine.setBalance(machine.getBalance() + coins);
+        machine.setState(SELECT_ITEM);
+        return coins;
+      }
     }
 
     @Override
     public void service(VendingMachine machine) {
-      machine.fillUpInventory();
+      machine.setState(SELECT_ITEM);
       machine.setState(SERVICE);
     }
   },
   SELECT_ITEM {
     @Override
-    public Drinks selectDrink(VendingMachine machine, Drinks drink) {
-      //      if (machine.disponibles().contains(drink)) {
-      //        machine.setState(MAKE_ITEM);
-      //        actualDrink = drink;
-      //      } else if (!machine.disponibles().isEmpty()) {
-      //        System.out.printf("We are sorry! Out of %s\n", drink);
-      //        System.out.println(machine.disponibles());
-      //        machine.setState(SELECT_ITEM);
-      //      } else {
-      //        System.out.println("Out of Service!");
-      //        returnCoins(machine);
-      //        machine.setState(SERVICE);
-      //      }
+    public Drinks selectItem(VendingMachine machine, Drinks drink) {
+      if (machine.getBalance() < drink.getPrice()) {
+        System.out.printf(
+            "The price of %s is %d.\nPlease add %d.\n",
+            drink, drink.getPrice(), drink.getPrice() - machine.getBalance());
+        machine.setState(SELECT_ITEM);
+        return drink;
+      }
+
+      if (machine.available().contains(drink)) {
+        machine.setState(MAKE_ITEM);
+        actualDrink = drink;
+      } else if (!machine.available().isEmpty()) {
+        System.out.printf("We are sorry! Out of %s\n", drink);
+        System.out.println(machine.available());
+        machine.setState(SELECT_ITEM);
+      } else {
+        System.out.println("Out of Service!");
+        returnCoins(machine);
+        machine.setState(SERVICE);
+      }
+
       return drink;
     }
 
     @Override
-    public int putCoins(VendingMachine machine, int coins) {
-      machine.setBalance(machine.getBalance() + coins);
-      machine.setState(SELECT_ITEM);
-      /*
-       * [WARNING] author ivailozd
-       *
-       * What is the point of returning the same value?
-       *
-       */
-      return coins;
+    public Products selectItem(VendingMachine machine, String productName) {
+
+      // TODO
+      return null;
     }
+
+    @Override
+    public int putCoins(VendingMachine machine, int coins) {
+      if (coins < 0) {
+        System.out.println("Negative coins are not accepted!");
+        machine.setState(STAND_BY);
+        return coins;
+      } else {
+        machine.setBalance(machine.getBalance() + coins);
+        machine.setState(SELECT_ITEM);
+        return coins;
+      }
+    }
+    /*
+     * [WARNING] author ivailozd
+     *
+     * What is the point of returning the same value?
+     *
+     */
+    //      return coins;
+    //    }
 
     @Override
     public int returnCoins(VendingMachine machine) {
@@ -74,20 +98,8 @@ public enum StateMachine implements Machine {
   MAKE_ITEM {
     @Override
     public Drinks makeDrink(VendingMachine machine) {
-      /*
-       * [WARNING] author ivailozd
-       *
-       * Validations should be made as soon as possible
-       *
-       */
-      if (machine.getBalance() < actualDrink.getPrice()) {
-        System.out.printf(
-            "The price of %s is %d.\nPlease add %d.\n",
-            actualDrink, actualDrink.getPrice(), actualDrink.getPrice() - machine.getBalance());
-        machine.setState(MAKE_ITEM);
-        return actualDrink;
-      }
-      //      actualDrink.create(); // should refactor this
+      machine.updateInventory(actualDrink);
+      machine.setBalance(machine.getBalance() - actualDrink.getPrice());
       machine.setState(TAKE_ITEM);
 
       /*
@@ -97,19 +109,6 @@ public enum StateMachine implements Machine {
        *
        */
       return actualDrink;
-    }
-
-    /*
-     * [WARNING] author ivailozd
-     *
-     * Why does the machine accept money in MAKE_ITEM state?
-     *
-     */
-    @Override
-    public int putCoins(VendingMachine machine, int coins) {
-      machine.setBalance(machine.getBalance() + coins);
-      machine.setState(MAKE_ITEM);
-      return coins;
     }
 
     @Override
@@ -125,31 +124,16 @@ public enum StateMachine implements Machine {
     @Override
     public Drinks takeDrink(VendingMachine machine) {
       System.out.printf("Your %s is ready!\n", actualDrink);
-      returnCoins(machine);
-      machine.setState(STAND_BY);
-      actualDrink = null;
-      return actualDrink;
-    }
-
-    /*
-     * [WARNING] author ivailozd
-     *
-     * The item has been already sold, the machine can't return the money!
-     *
-     */
-    @Override
-    public int returnCoins(VendingMachine machine) {
       int coins = machine.getBalance();
       System.out.printf("%d coins returned!\n", coins);
-      machine.setBalance(0);
-      machine.setState(STAND_BY);
-      return coins;
+      machine.setBalance(0);      machine.setState(STAND_BY);
+      actualDrink = null;
+      return actualDrink;
     }
   },
   SERVICE {
     @Override
     public void service(VendingMachine machine) {
-      machine.fillUpInventory();
       machine.setState(SERVICE);
     }
 
@@ -190,13 +174,6 @@ public enum StateMachine implements Machine {
     }
   };
 
-  /*
-   * [WARNING] author ivailozd
-   *
-   * Why are these static fields?
-   *
-   */
-  // remove inventory & machine fields
   private static Drinks actualDrink = null;
 
   /*
@@ -206,40 +183,35 @@ public enum StateMachine implements Machine {
    *
    */
 
-  @Override
   public int putCoins(VendingMachine machine, int coins) {
     return coins;
   }
 
-  @Override
   public int returnCoins(VendingMachine machine) {
     return 0;
   }
 
-  @Override
-  public Drinks selectDrink(VendingMachine machine, Drinks drink) {
+  public Drinks selectItem(VendingMachine machine, Drinks drink) {
     return null;
   }
 
-  @Override
+  public Products selectItem(VendingMachine machine, String productName) {
+    return null;
+  }
+
   public Drinks makeDrink(VendingMachine machine) {
     return null;
   }
 
-  @Override
   public Drinks takeDrink(VendingMachine machine) {
     return null;
   }
 
-  @Override
   public void service(VendingMachine machine) {}
 
-  @Override
   public void endService(VendingMachine machine) {}
 
-  @Override
   public void addProduct(VendingMachine machine, String name, int price, int quantity) {}
 
-  @Override
   public void addProduct(VendingMachine machine, Ingredients ingredients, int quantity) {}
 }
