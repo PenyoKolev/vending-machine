@@ -1,4 +1,4 @@
-package beverage;
+package com.egtinteractive.beverage;
 
 public enum Drinks {
   AMERICANO(2, 2, 0),

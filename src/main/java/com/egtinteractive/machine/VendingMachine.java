@@ -1,10 +1,10 @@
-package machine;
+package com.egtinteractive.machine;
 
 import java.util.Set;
 import java.util.TreeSet;
-import beverage.Drinks;
-import beverage.Products;
-import inventory.Inventory;
+import com.egtinteractive.beverage.Drinks;
+import com.egtinteractive.beverage.Products;
+import com.egtinteractive.inventory.Inventory;
 
 public class VendingMachine implements Machine {
   public enum Ingredients {

@@ -1,7 +1,6 @@
 package com.egtinteractive.vendingMachine;
 
-import beverage.Drinks;
-import machine.VendingMachine;
+import com.egtinteractive.machine.VendingMachine;
 
 public class Generator {
 

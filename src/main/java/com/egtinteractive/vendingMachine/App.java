@@ -1,9 +1,9 @@
 package com.egtinteractive.vendingMachine;
 
-import machine.Machine;
-import machine.VendingMachine;
-import static machine.VendingMachine.Ingredients;
-import beverage.Drinks;
+import static com.egtinteractive.machine.VendingMachine.Ingredients;
+import com.egtinteractive.beverage.Drinks;
+import com.egtinteractive.machine.Machine;
+import com.egtinteractive.machine.VendingMachine;
 
 public class App {
 

@@ -1,8 +1,8 @@
-package inventory;
+package com.egtinteractive.inventory;
 
 import java.util.ArrayList;
 import java.util.List;
-import beverage.Products;
+import com.egtinteractive.beverage.Products;
 
 public class Inventory {
 

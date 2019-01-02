@@ -1,4 +1,4 @@
-package beverage;
+package com.egtinteractive.beverage;
 
 public class Products {
 

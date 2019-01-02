@@ -1,8 +1,8 @@
-package machine;
+package com.egtinteractive.machine;
 
-import beverage.Drinks;
-import beverage.Products;
-import machine.VendingMachine.Ingredients;
+import com.egtinteractive.beverage.Drinks;
+import com.egtinteractive.beverage.Products;
+import com.egtinteractive.machine.VendingMachine.Ingredients;
 
 public interface Machine {
 

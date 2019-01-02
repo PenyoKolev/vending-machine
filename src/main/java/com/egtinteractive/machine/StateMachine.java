@@ -1,8 +1,8 @@
-package machine;
+package com.egtinteractive.machine;
 
-import beverage.Drinks;
-import beverage.Products;
-import machine.VendingMachine.Ingredients;
+import com.egtinteractive.beverage.Drinks;
+import com.egtinteractive.beverage.Products;
+import com.egtinteractive.machine.VendingMachine.Ingredients;
 
 public enum StateMachine {
   STAND_BY {
@@ -124,9 +124,9 @@ public enum StateMachine {
     @Override
     public Drinks takeDrink(VendingMachine machine) {
       System.out.printf("Your %s is ready!\n", actualDrink);
-      int coins = machine.getBalance();
-      System.out.printf("%d coins returned!\n", coins);
-      machine.setBalance(0);      machine.setState(STAND_BY);
+      System.out.printf("%d coins returned!\n", machine.getBalance());
+      machine.setBalance(0);
+      machine.setState(STAND_BY);
       actualDrink = null;
       return actualDrink;
     }
