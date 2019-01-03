@@ -75,111 +75,51 @@ public class VendingMachine implements Machine {
 
   @Override
   public int putCoins(int coins) {
-    System.out.println(this.state);
-    System.out.println("coffee: " + inventory.getCoffee());
-    System.out.println("milk: " + inventory.getMilk());
-    System.out.println("products: " + inventory.getProducts());
-    System.out.println("balance: " + this.getBalance());
-    System.out.println("funds: " + inventory.getFunds());
     return state.putCoins(this, coins);
   }
 
   @Override
   public int returnCoins() {
-    System.out.println(this.state);
-    System.out.println("coffee: " + inventory.getCoffee());
-    System.out.println("milk: " + inventory.getMilk());
-    System.out.println("products: " + inventory.getProducts());
-    System.out.println("balance: " + this.getBalance());
-    System.out.println("funds: " + inventory.getFunds());
     return state.returnCoins(this);
   }
 
   @Override
   public Drinks selectItem(Drinks drink) {
-    System.out.println(this.state);
-    System.out.println("coffee: " + inventory.getCoffee());
-    System.out.println("milk: " + inventory.getMilk());
-    System.out.println("products: " + inventory.getProducts());
-    System.out.println("balance: " + this.getBalance());
-    System.out.println("funds: " + inventory.getFunds());
     return state.selectItem(this, drink);
   }
 
   @Override
   public Products selectItem(String productName) {
-    System.out.println(this.state);
-    System.out.println("coffee: " + inventory.getCoffee());
-    System.out.println("milk: " + inventory.getMilk());
-    System.out.println("products: " + inventory.getProducts());
-    System.out.println("balance: " + this.getBalance());
-    System.out.println("funds: " + inventory.getFunds());
     return state.selectItem(this, productName);
   }
 
   @Override
   public void makeItem() {
-    System.out.println(this.state);
-    System.out.println("coffee: " + inventory.getCoffee());
-    System.out.println("milk: " + inventory.getMilk());
-    System.out.println("products: " + inventory.getProducts());
-    System.out.println("balance: " + this.getBalance());
-    System.out.println("funds: " + inventory.getFunds());
     state.makeItem(this);
   }
 
   @Override
   public Articles takeItem() {
-    System.out.println(this.state);
-    System.out.println("coffee: " + inventory.getCoffee());
-    System.out.println("milk: " + inventory.getMilk());
-    System.out.println("products: " + inventory.getProducts());
-    System.out.println("balance: " + this.getBalance());
-    System.out.println("funds: " + inventory.getFunds());
     return state.takeItem(this);
   }
 
   @Override
   public void service() {
-    System.out.println(this.state);
-    System.out.println("coffee: " + inventory.getCoffee());
-    System.out.println("milk: " + inventory.getMilk());
-    System.out.println("products: " + inventory.getProducts());
-    System.out.println("balance: " + this.getBalance());
-    System.out.println("funds: " + inventory.getFunds());
     state.service(this);
   }
 
   @Override
   public void endService() {
-    System.out.println(this.state);
-    System.out.println("coffee: " + inventory.getCoffee());
-    System.out.println("milk: " + inventory.getMilk());
-    System.out.println("products: " + inventory.getProducts());
-    System.out.println("balance: " + this.getBalance());
-    System.out.println("funds: " + inventory.getFunds());
     state.endService(this);
   }
 
   @Override
   public void addProduct(String name, int price, int quantity) {
-    System.out.println(this.state);
-    System.out.println("coffee: " + inventory.getCoffee());
-    System.out.println("milk: " + inventory.getMilk());
-    System.out.println("products: " + inventory.getProducts());
-    System.out.println("balance: " + this.getBalance());
-    System.out.println("funds: " + inventory.getFunds());
     state.addProduct(this, name, price, quantity);
   }
 
   @Override
   public void addProduct(Ingredients ingredients, int quantity) {
-    System.out.println(this.state);
-    System.out.println("coffee: " + inventory.getCoffee());
-    System.out.println("milk: " + inventory.getMilk());
-    System.out.println("products: " + inventory.getProducts());
-    System.out.println("balance: " + this.getBalance());
-    System.out.println("funds: " + inventory.getFunds());
     state.addProduct(this, ingredients, quantity);
   }
 }

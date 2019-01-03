@@ -94,7 +94,7 @@ public class SelectItemTest {
     // Assert
     assertEquals(machine.getState().toString(), "SELECT_ITEM");
   }
-  
+
   @Test(dataProvider = "standBy")
   public void selectItemProductShouldChangeStateToMAKE_ITEM(VendingMachine machine) {
     // Arrange
@@ -110,7 +110,7 @@ public class SelectItemTest {
     // Assert
     assertEquals(machine.getState().toString(), "MAKE_ITEM");
   }
-  
+
   @Test(dataProvider = "standBy")
   public void selectItemProductShouldNotChangeStateIfNotEnoughMoney(VendingMachine machine) {
     // Arrange
@@ -126,7 +126,7 @@ public class SelectItemTest {
     // Assert
     assertEquals(machine.getState().toString(), "SELECT_ITEM");
   }
-  
+
   @Test(dataProvider = "standBy")
   public void putCoinsShouldAddToBalance(VendingMachine machine) {
     // Arrange
@@ -134,21 +134,19 @@ public class SelectItemTest {
     machine.putCoins(oldCoins);
     int coins = ThreadLocalRandom.current().nextInt(1, 100);
 
-
     // Act
     machine.putCoins(coins);
 
     // Assert
     assertEquals(machine.getBalance(), coins + oldCoins);
   }
-  
+
   @Test(dataProvider = "standBy")
   public void putNegativeCoinsShouldNotChangeBalance(VendingMachine machine) {
     // Arrange
     int oldCoins = ThreadLocalRandom.current().nextInt(1, 100);
     machine.putCoins(oldCoins);
     int coins = ThreadLocalRandom.current().nextInt(-100, -1);
-
 
     // Act
     machine.putCoins(coins);
