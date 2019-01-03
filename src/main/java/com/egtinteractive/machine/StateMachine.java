@@ -74,7 +74,7 @@ public enum StateMachine {
     public int putCoins(VendingMachine machine, int coins) {
       if (coins < 0) {
         System.out.println("Negative coins are not accepted!");
-        machine.setState(STAND_BY);
+        machine.setState(SELECT_ITEM);
         return machine.getBalance();
       } else {
         machine.setBalance(machine.getBalance() + coins);
