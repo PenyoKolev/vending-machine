@@ -61,7 +61,7 @@ public enum StateMachine {
       if (machine.getBalance() < product.getPrice()) {
         System.out.printf(
             "The price of %s is %d.\nPlease add %d.\n",
-            product, product.getPrice(), product.getPrice() - machine.getBalance());
+            product.getName(), product.getPrice(), product.getPrice() - machine.getBalance());
         machine.setState(SELECT_ITEM);
         return product;
       }
