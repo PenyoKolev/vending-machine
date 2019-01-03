@@ -15,25 +15,22 @@ public class App {
     machine.addProduct("Sarmi", 7, 1);
     machine.addProduct("Cote de porc", 4, 1);
     machine.addProduct(Ingredients.COFFEE, 3);
-    machine.addProduct(Ingredients.MILK, 5);
+    machine.addProduct(Ingredients.MILK, 2);
 
     machine.endService();
 
-//    machine.putCoins(1);
-//    machine.selectItem("Bahur");
     machine.putCoins(12);
     machine.selectItem("Bahur");
-//    machine.selectItem(Drinks.CAPUCCINO);
 
-    machine.makeDrink();
-    machine.takeDrink();
+    machine.makeItem();
+    machine.takeItem();
 
     System.out.println();
-    
+
     machine.putCoins(12);
     machine.selectItem(Drinks.CAPUCCINO);
 
-    machine.makeDrink();
-    machine.takeDrink();
+    machine.makeItem();
+    machine.takeItem();
   }
 }

@@ -118,25 +118,25 @@ public class VendingMachine implements Machine {
   }
 
   @Override
-  public Articles makeDrink() {
+  public void makeItem() {
     System.out.println(this.state);
     System.out.println("coffee: " + inventory.getCoffee());
     System.out.println("milk: " + inventory.getMilk());
     System.out.println("products: " + inventory.getProducts());
     System.out.println("balance: " + this.getBalance());
     System.out.println("funds: " + inventory.getFunds());
-    return state.makeDrink(this);
+    state.makeItem(this);
   }
 
   @Override
-  public Articles takeDrink() {
+  public Articles takeItem() {
     System.out.println(this.state);
     System.out.println("coffee: " + inventory.getCoffee());
     System.out.println("milk: " + inventory.getMilk());
     System.out.println("products: " + inventory.getProducts());
     System.out.println("balance: " + this.getBalance());
     System.out.println("funds: " + inventory.getFunds());
-    return state.takeDrink(this);
+    return state.takeItem(this);
   }
 
   @Override

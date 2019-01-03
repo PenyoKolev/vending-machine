@@ -14,7 +14,7 @@ public enum Drinks implements Articles {
     this.coffee = coffee;
     this.milk = milk;
   }
-  
+
   public String getName() {
     return this.toString();
   }

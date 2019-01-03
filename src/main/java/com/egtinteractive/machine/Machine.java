@@ -12,13 +12,13 @@ public interface Machine {
   public int returnCoins();
 
   public Drinks selectItem(Drinks drink);
-  
-  public Products selectItem(String productName);
-  
-  public Articles makeDrink();
 
-  public Articles takeDrink();
-  
+  public Products selectItem(String productName);
+
+  public void makeItem();
+
+  public Articles takeItem();
+
   public void service();
 
   public void endService();
@@ -26,5 +26,4 @@ public interface Machine {
   public void addProduct(String name, int price, int quantity);
 
   public void addProduct(Ingredients ingredients, int quantity);
-
 }

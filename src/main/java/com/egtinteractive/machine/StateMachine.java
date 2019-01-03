@@ -35,7 +35,6 @@ public enum StateMachine {
         machine.setState(SELECT_ITEM);
         return drink;
       }
-
       if (machine.available().contains(drink)) {
         machine.setState(MAKE_ITEM);
         article = drink;
@@ -48,14 +47,24 @@ public enum StateMachine {
         returnCoins(machine);
         machine.setState(SERVICE);
       }
-
       return drink;
     }
 
     @Override
     public Products selectItem(VendingMachine machine, String productName) {
-      // TODO finish it
       Products product = machine.getInventory().getProductByName(productName);
+      if (product == null) {
+        System.out.printf("We are sorry! Out of %s\n", productName);
+        machine.setState(SELECT_ITEM);
+        return product;
+      }
+      if (machine.getBalance() < product.getPrice()) {
+        System.out.printf(
+            "The price of %s is %d.\nPlease add %d.\n",
+            product, product.getPrice(), product.getPrice() - machine.getBalance());
+        machine.setState(SELECT_ITEM);
+        return product;
+      }
       article = product;
       machine.setState(MAKE_ITEM);
       return product;
@@ -78,12 +87,6 @@ public enum StateMachine {
     public int returnCoins(VendingMachine machine) {
       int coins = machine.getBalance();
       System.out.printf("%d coins returned!\n", coins);
-      /*
-       * [WARNING] author ivailozd
-       *
-       * Why is this? Where is the profit?
-       *
-       */
       machine.setBalance(0);
       machine.setState(STAND_BY);
       return coins;
@@ -91,11 +94,10 @@ public enum StateMachine {
   },
   MAKE_ITEM {
     @Override
-    public Articles makeDrink(VendingMachine machine) {
+    public void makeItem(VendingMachine machine) {
       machine.updateInventory(article);
       machine.setBalance(machine.getBalance() - article.getPrice());
       machine.setState(TAKE_ITEM);
-      return article;
     }
 
     @Override
@@ -109,7 +111,7 @@ public enum StateMachine {
   },
   TAKE_ITEM {
     @Override
-    public Articles takeDrink(VendingMachine machine) {
+    public Articles takeItem(VendingMachine machine) {
       System.out.printf("Your %s is ready!\n", article.getName());
       System.out.printf("%d coins returned!\n", machine.getBalance());
       machine.setBalance(0);
@@ -128,7 +130,9 @@ public enum StateMachine {
     public void addProduct(VendingMachine machine, String name, int price, int quantity) {
       Products product = new Products(name, price);
       if (machine.getInventory().getProducts().size() + quantity > VendingMachine.DEFAULT_SIZE) {
-        System.out.println("No free space!");
+        System.out.printf(
+            "Only %d articles can be added!\n",
+            VendingMachine.DEFAULT_SIZE - machine.getInventory().getProducts().size());
         return;
       }
       for (int i = 0; i < quantity; i++) {
@@ -138,17 +142,20 @@ public enum StateMachine {
 
     @Override
     public void addProduct(VendingMachine machine, Ingredients ingredients, int quantity) {
-
       if (ingredients == Ingredients.COFFEE) {
         if (machine.getInventory().getCoffee() + quantity > VendingMachine.COFFEE_TANK) {
-          System.out.println("Not enough space");
+          System.out.printf(
+              "Only %d coffee can be added!\n",
+              VendingMachine.COFFEE_TANK - machine.getInventory().getCoffee());
         } else {
           machine.getInventory().setCoffee(quantity);
         }
       }
       if (ingredients == Ingredients.MILK) {
         if (machine.getInventory().getMilk() + quantity > VendingMachine.MILK_TANK) {
-          System.out.println("Not enough space");
+          System.out.printf(
+              "Only %d milk can be added!\n",
+              VendingMachine.MILK_TANK - machine.getInventory().getMilk());
         } else {
           machine.getInventory().setMilk(quantity);
         }
@@ -186,11 +193,9 @@ public enum StateMachine {
     return null;
   }
 
-  public Articles makeDrink(VendingMachine machine) {
-    return null;
-  }
+  public void makeItem(VendingMachine machine) {}
 
-  public Articles takeDrink(VendingMachine machine) {
+  public Articles takeItem(VendingMachine machine) {
     return null;
   }
 
