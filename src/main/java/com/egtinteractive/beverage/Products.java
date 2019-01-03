@@ -1,6 +1,6 @@
 package com.egtinteractive.beverage;
 
-public class Products {
+public class Products implements Articles{
 
   private String name;
   private int price;

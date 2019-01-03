@@ -1,6 +1,6 @@
 package com.egtinteractive.beverage;
 
-public enum Drinks {
+public enum Drinks implements Articles {
   AMERICANO(2, 2, 0),
   CAPUCCINO(3, 1, 2),
   LATTE(2, 1, 1);
@@ -13,6 +13,10 @@ public enum Drinks {
     this.price = price;
     this.coffee = coffee;
     this.milk = milk;
+  }
+  
+  public String getName() {
+    return this.toString();
   }
 
   public int getPrice() {

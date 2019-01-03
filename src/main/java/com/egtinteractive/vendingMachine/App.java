@@ -19,14 +19,21 @@ public class App {
 
     machine.endService();
 
-    machine.putCoins(1);
-    machine.selectItem(Drinks.CAPUCCINO);
-    machine.putCoins(9);
-    machine.selectItem(Drinks.CAPUCCINO);
+//    machine.putCoins(1);
+//    machine.selectItem("Bahur");
+    machine.putCoins(12);
+    machine.selectItem("Bahur");
+//    machine.selectItem(Drinks.CAPUCCINO);
 
     machine.makeDrink();
     machine.takeDrink();
 
     System.out.println();
+    
+    machine.putCoins(12);
+    machine.selectItem(Drinks.CAPUCCINO);
+
+    machine.makeDrink();
+    machine.takeDrink();
   }
 }

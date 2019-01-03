@@ -1,6 +1,7 @@
 package com.egtinteractive.machine;
 
 import com.egtinteractive.beverage.Drinks;
+import com.egtinteractive.beverage.Articles;
 import com.egtinteractive.beverage.Products;
 import com.egtinteractive.machine.VendingMachine.Ingredients;
 
@@ -21,7 +22,6 @@ public enum StateMachine {
 
     @Override
     public void service(VendingMachine machine) {
-      machine.setState(SELECT_ITEM);
       machine.setState(SERVICE);
     }
   },
@@ -38,7 +38,7 @@ public enum StateMachine {
 
       if (machine.available().contains(drink)) {
         machine.setState(MAKE_ITEM);
-        actualDrink = drink;
+        article = drink;
       } else if (!machine.available().isEmpty()) {
         System.out.printf("We are sorry! Out of %s\n", drink);
         System.out.println(machine.available());
@@ -54,9 +54,11 @@ public enum StateMachine {
 
     @Override
     public Products selectItem(VendingMachine machine, String productName) {
-
-      // TODO
-      return null;
+      // TODO finish it
+      Products product = machine.getInventory().getProductByName(productName);
+      article = product;
+      machine.setState(MAKE_ITEM);
+      return product;
     }
 
     @Override
@@ -64,21 +66,13 @@ public enum StateMachine {
       if (coins < 0) {
         System.out.println("Negative coins are not accepted!");
         machine.setState(STAND_BY);
-        return coins;
+        return machine.getBalance();
       } else {
         machine.setBalance(machine.getBalance() + coins);
         machine.setState(SELECT_ITEM);
-        return coins;
+        return machine.getBalance();
       }
     }
-    /*
-     * [WARNING] author ivailozd
-     *
-     * What is the point of returning the same value?
-     *
-     */
-    //      return coins;
-    //    }
 
     @Override
     public int returnCoins(VendingMachine machine) {
@@ -97,18 +91,11 @@ public enum StateMachine {
   },
   MAKE_ITEM {
     @Override
-    public Drinks makeDrink(VendingMachine machine) {
-      machine.updateInventory(actualDrink);
-      machine.setBalance(machine.getBalance() - actualDrink.getPrice());
+    public Articles makeDrink(VendingMachine machine) {
+      machine.updateInventory(article);
+      machine.setBalance(machine.getBalance() - article.getPrice());
       machine.setState(TAKE_ITEM);
-
-      /*
-       * [WARNING] author ivailozd
-       *
-       * If I got the drink here, why would I call takeDrink()?
-       *
-       */
-      return actualDrink;
+      return article;
     }
 
     @Override
@@ -122,13 +109,13 @@ public enum StateMachine {
   },
   TAKE_ITEM {
     @Override
-    public Drinks takeDrink(VendingMachine machine) {
-      System.out.printf("Your %s is ready!\n", actualDrink);
+    public Articles takeDrink(VendingMachine machine) {
+      System.out.printf("Your %s is ready!\n", article.getName());
       System.out.printf("%d coins returned!\n", machine.getBalance());
       machine.setBalance(0);
       machine.setState(STAND_BY);
-      actualDrink = null;
-      return actualDrink;
+      article = null;
+      return article;
     }
   },
   SERVICE {
@@ -174,7 +161,7 @@ public enum StateMachine {
     }
   };
 
-  private static Drinks actualDrink = null;
+  private static Articles article;
 
   /*
    * [WARNING] author ivailozd
@@ -199,11 +186,11 @@ public enum StateMachine {
     return null;
   }
 
-  public Drinks makeDrink(VendingMachine machine) {
+  public Articles makeDrink(VendingMachine machine) {
     return null;
   }
 
-  public Drinks takeDrink(VendingMachine machine) {
+  public Articles takeDrink(VendingMachine machine) {
     return null;
   }
 

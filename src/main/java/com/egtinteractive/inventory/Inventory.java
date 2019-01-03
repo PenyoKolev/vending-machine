@@ -18,6 +18,15 @@ public class Inventory {
     setFunds(funds);
   }
 
+  public Products getProductByName(String productName) {
+    for (Products product : products) {
+      if (product.getName().equals(productName)) {
+        return product;
+      }
+    }
+    return null;
+  }
+
   public List<Products> getProducts() {
     return products;
   }

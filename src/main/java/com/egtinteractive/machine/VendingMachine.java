@@ -2,6 +2,7 @@ package com.egtinteractive.machine;
 
 import java.util.Set;
 import java.util.TreeSet;
+import com.egtinteractive.beverage.Articles;
 import com.egtinteractive.beverage.Drinks;
 import com.egtinteractive.beverage.Products;
 import com.egtinteractive.inventory.Inventory;
@@ -35,14 +36,18 @@ public class VendingMachine implements Machine {
     }
     return available;
   }
-  
-  public void updateInventory(Drinks drinks) {
-    inventory.setFunds(inventory.getFunds() + drinks.getPrice());
-    inventory.setCoffee(inventory.getCoffee() - drinks.getCoffee());
-    inventory.setMilk(inventory.getMilk() - drinks.getMilk());
-    available = new TreeSet<>();
-    }
 
+  public void updateInventory(Articles article) {
+    if (article instanceof Drinks) {
+      Drinks drink = (Drinks) article;
+      inventory.setCoffee(inventory.getCoffee() - drink.getCoffee());
+      inventory.setMilk(inventory.getMilk() - drink.getMilk());
+      available = new TreeSet<>();
+    } else {
+      inventory.getProducts().remove(article);
+    }
+    inventory.setFunds(inventory.getFunds() + article.getPrice());
+  }
 
   public StateMachine getState() {
     return state;
@@ -113,7 +118,7 @@ public class VendingMachine implements Machine {
   }
 
   @Override
-  public Drinks makeDrink() {
+  public Articles makeDrink() {
     System.out.println(this.state);
     System.out.println("coffee: " + inventory.getCoffee());
     System.out.println("milk: " + inventory.getMilk());
@@ -124,7 +129,7 @@ public class VendingMachine implements Machine {
   }
 
   @Override
-  public Drinks takeDrink() {
+  public Articles takeDrink() {
     System.out.println(this.state);
     System.out.println("coffee: " + inventory.getCoffee());
     System.out.println("milk: " + inventory.getMilk());

@@ -1,5 +1,6 @@
 package com.egtinteractive.machine;
 
+import com.egtinteractive.beverage.Articles;
 import com.egtinteractive.beverage.Drinks;
 import com.egtinteractive.beverage.Products;
 import com.egtinteractive.machine.VendingMachine.Ingredients;
@@ -14,10 +15,10 @@ public interface Machine {
   
   public Products selectItem(String productName);
   
-  public Drinks makeDrink();
+  public Articles makeDrink();
 
-  public Drinks takeDrink();
-
+  public Articles takeDrink();
+  
   public void service();
 
   public void endService();
