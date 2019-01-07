@@ -9,6 +9,13 @@ public class Inventory {
   private List<Products> products;
   private int coffee;
   private int milk;
+
+  /*
+   * [WARNING] author ivailozd
+   *
+   * The profit shouldn't be Inventory's responsibility
+   *
+   */
   private int funds;
 
   public Inventory() {
@@ -19,6 +26,13 @@ public class Inventory {
   }
 
   public Products getProductByName(String productName) {
+
+    /*
+     * [WARNING] author ivailozd
+     *
+     *  Should find the product faster
+     *
+     */
     for (Products product : products) {
       if (product.getName().equals(productName)) {
         return product;

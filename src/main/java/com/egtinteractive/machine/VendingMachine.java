@@ -24,6 +24,13 @@ public class VendingMachine implements Machine {
 
   public VendingMachine() {
     this.state = StateMachine.SERVICE;
+
+    /*
+     * [WARNING] author ivailozd
+     *
+     *  It's better to pass the inventory as parameter
+     *
+     */
     this.setInventory(new Inventory());
     this.balance = 0;
   }
@@ -49,10 +56,22 @@ public class VendingMachine implements Machine {
     inventory.setFunds(inventory.getFunds() + article.getPrice());
   }
 
+  /*
+   * [WARNING] author ivailozd
+   *
+   * Can not be public
+   *
+   */
   public StateMachine getState() {
     return state;
   }
 
+  /*
+   * [WARNING] author ivailozd
+   *
+   * Can not be public
+   *
+   */
   public void setState(StateMachine state) {
     this.state = state;
   }

@@ -168,6 +168,12 @@ public enum StateMachine {
     }
   };
 
+  /*
+   * [WARNING] author ivailozd
+   *
+   * Can not be static
+   *
+   */
   private static Articles article;
 
   /*
