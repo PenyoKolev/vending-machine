@@ -5,24 +5,19 @@ import java.util.List;
 import com.egtinteractive.beverage.Products;
 
 public class Inventory {
+  
+  public final int DEFAULT_SIZE = 10;
+  public final int COFFEE_TANK = 10;
+  public final int MILK_TANK = 10;
 
   private List<Products> products;
   private int coffee;
   private int milk;
 
-  /*
-   * [WARNING] author ivailozd
-   *
-   * The profit shouldn't be Inventory's responsibility
-   *
-   */
-  private int funds;
-
   public Inventory() {
-    setProducts(new ArrayList<>());
-    setCoffee(coffee);
-    setMilk(milk);
-    setFunds(funds);
+    this.products = new ArrayList<>();
+    this.coffee = 0;
+    this.milk = 0;
   }
 
   public Products getProductByName(String productName) {
@@ -63,13 +58,5 @@ public class Inventory {
 
   public void setMilk(int milk) {
     this.milk = milk;
-  }
-
-  public int getFunds() {
-    return funds;
-  }
-
-  public void setFunds(int funds) {
-    this.funds = funds;
   }
 }

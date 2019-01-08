@@ -13,25 +13,16 @@ public class VendingMachine implements Machine {
     MILK
   }
 
-  static final int DEFAULT_SIZE = 10;
-  static final int COFFEE_TANK = 10;
-  static final int MILK_TANK = 10;
-
   private StateMachine state;
   private Inventory inventory;
   private int balance;
+  private int funds;
+  private Articles article;
   private Set<Drinks> available = new TreeSet<>();
 
-  public VendingMachine() {
+  public VendingMachine(Inventory inventory) {
     this.state = StateMachine.SERVICE;
-
-    /*
-     * [WARNING] author ivailozd
-     *
-     *  It's better to pass the inventory as parameter
-     *
-     */
-    this.setInventory(new Inventory());
+    this.inventory = inventory;
     this.balance = 0;
   }
 
@@ -53,7 +44,7 @@ public class VendingMachine implements Machine {
     } else {
       inventory.getProducts().remove(article);
     }
-    inventory.setFunds(inventory.getFunds() + article.getPrice());
+    setFunds(getFunds() + article.getPrice()); 
   }
 
   /*
@@ -75,7 +66,7 @@ public class VendingMachine implements Machine {
   public void setState(StateMachine state) {
     this.state = state;
   }
-
+  
   public Inventory getInventory() {
     return inventory;
   }
@@ -83,13 +74,29 @@ public class VendingMachine implements Machine {
   public void setInventory(Inventory inventory) {
     this.inventory = inventory;
   }
-
+  
   public int getBalance() {
     return balance;
   }
 
   public void setBalance(int balance) {
     this.balance = balance;
+  }
+
+  public int getFunds() {
+    return funds;
+  }
+
+  public void setFunds(int funds) {
+    this.funds = funds;
+  }
+
+  public Articles getArticle() {
+    return article;
+  }
+
+  public void setArticle(Articles article) {
+    this.article = article;
   }
 
   @Override
@@ -104,12 +111,12 @@ public class VendingMachine implements Machine {
 
   @Override
   public Drinks selectItem(Drinks drink) {
-    return state.selectItem(this, drink);
+    return state.selectItem(this, inventory, drink);
   }
 
   @Override
   public Products selectItem(String productName) {
-    return state.selectItem(this, productName);
+    return state.selectItem(this, inventory, productName);
   }
 
   @Override
@@ -134,11 +141,11 @@ public class VendingMachine implements Machine {
 
   @Override
   public void addProduct(String name, int price, int quantity) {
-    state.addProduct(this, name, price, quantity);
+    state.addProduct(this, name, inventory, price, quantity);
   }
 
   @Override
   public void addProduct(Ingredients ingredients, int quantity) {
-    state.addProduct(this, ingredients, quantity);
+    state.addProduct(this, ingredients, inventory, quantity);
   }
 }

@@ -89,7 +89,7 @@ public class SelectItemTest {
     machine.putCoins(coins);
 
     // Act
-    machine.selectItem("Chips");
+    machine.selectItem("Lemonade");
 
     // Assert
     assertEquals(machine.getState().toString(), "SELECT_ITEM");

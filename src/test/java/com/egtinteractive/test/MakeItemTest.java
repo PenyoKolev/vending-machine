@@ -40,7 +40,7 @@ public class MakeItemTest {
     machine.makeItem();
 
     // Assert
-    assertEquals(machine.getInventory().getFunds(), expected);
+    assertEquals(machine.getFunds(), expected);
   }
 
   @Test(dataProvider = "standBy")
@@ -59,7 +59,7 @@ public class MakeItemTest {
   }
 
   @Test(dataProvider = "standBy")
-  public void test(VendingMachine machine) {
+  public void makeItemShouldReduceProductsSize(VendingMachine machine) {
     // Arrange
     int quantity = 2;
     machine.service();

@@ -41,7 +41,7 @@ public class TakeItemTest {
     machine.takeItem();
 
     // Assert
-    assertEquals(coins - machine.getInventory().getFunds(), coins - drink.getPrice());
+    assertEquals(coins - machine.getFunds(), coins - drink.getPrice());
   }
   
   @Test(dataProvider = "standBy")

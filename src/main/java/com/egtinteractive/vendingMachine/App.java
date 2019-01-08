@@ -2,6 +2,7 @@ package com.egtinteractive.vendingMachine;
 
 import static com.egtinteractive.machine.VendingMachine.Ingredients;
 import com.egtinteractive.beverage.Drinks;
+import com.egtinteractive.inventory.Inventory;
 import com.egtinteractive.machine.Machine;
 import com.egtinteractive.machine.VendingMachine;
 
@@ -9,7 +10,8 @@ public class App {
 
   public static void main(String[] args) {
 
-    Machine machine = new VendingMachine();
+    Inventory inventory = new Inventory();
+    Machine machine = new VendingMachine(inventory);
 
     machine.addProduct("Water", 2, 2);
     machine.addProduct("Schweppes", 3, 1);
