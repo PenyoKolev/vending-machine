@@ -3,6 +3,8 @@ package com.egtinteractive.test;
 import static org.testng.Assert.assertEquals;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import com.egtinteractive.inventory.Inventory;
+import com.egtinteractive.inventory.ProductPair;
 import com.egtinteractive.machine.VendingMachine;
 import com.egtinteractive.machine.VendingMachine.Ingredients;
 import com.egtinteractive.provider.Provider;
@@ -28,13 +30,13 @@ public class ServiceTest {
     // Arrange
     String name = "Lemonade";
     int price = 2;
-    int quantity = 3;
+    int quantity = 6;
 
     // Act
     machine.addProduct(name, price, quantity);
-
+    
     // Assert
-    assertEquals(machine.getInventory().getProducts().size(), quantity);
+    assertEquals(machine.getInventory().getSize(), quantity);
   }
 
   @Test(dataProvider = "service")

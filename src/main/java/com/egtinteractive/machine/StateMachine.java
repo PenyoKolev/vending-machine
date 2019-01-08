@@ -1,9 +1,11 @@
 package com.egtinteractive.machine;
 
 import com.egtinteractive.beverage.Drinks;
+import java.util.Map;
 import com.egtinteractive.beverage.Articles;
 import com.egtinteractive.beverage.Products;
 import com.egtinteractive.inventory.Inventory;
+import com.egtinteractive.inventory.ProductPair;
 import com.egtinteractive.machine.VendingMachine.Ingredients;
 
 public enum StateMachine {
@@ -99,6 +101,9 @@ public enum StateMachine {
       machine.updateInventory(machine.getArticle());
       machine.setBalance(machine.getBalance() - machine.getArticle().getPrice());
       machine.setState(TAKE_ITEM);
+      for (ProductPair product : machine.getInventory().getProducts().values()) {
+        System.out.println(product.getProduct().getName() + product.getQuantity()); 
+      }
     }
 
     @Override
@@ -118,6 +123,9 @@ public enum StateMachine {
       machine.setBalance(0);
       machine.setState(STAND_BY);
       machine.setArticle(null);
+
+      
+      
       return machine.getArticle();
     }
   },
@@ -131,15 +139,18 @@ public enum StateMachine {
     public void addProduct(
         VendingMachine machine, String name, Inventory inventory, int price, int quantity) {
       Products product = new Products(name, price);
-      if (inventory.getProducts().size() + quantity > inventory.DEFAULT_SIZE) {
+      if (inventory.getSize() + quantity > inventory.DEFAULT_SIZE) {
         System.out.printf(
             "Only %d articles can be added!\n",
             inventory.DEFAULT_SIZE - inventory.getProducts().size());
         return;
       }
-      for (int i = 0; i < quantity; i++) {
-        inventory.getProducts().add(product);
+      
+      ProductPair pair = new ProductPair(product, quantity);
+      if (quantity <= 0) {
+        return;
       }
+      inventory.getProducts().put(product.getName(), pair);
     }
 
     @Override
@@ -169,57 +180,50 @@ public enum StateMachine {
     }
   };
 
-  /*
-   * [WARNING] author ivailozd
-   *
-   * Every state should implements its logic for the methods below
-   *
-   */
-
   public int putCoins(VendingMachine machine, int coins) {
-    System.out.println("Coins are not accepted in current state!" ); 
+    System.out.println("Coins are not accepted in current state!");
     return coins;
   }
 
   public int returnCoins(VendingMachine machine) {
-    System.out.println("Machine cannot return coins in current state!" ); 
+    System.out.println("Machine cannot return coins in current state!");
     return 0;
   }
 
   public Drinks selectItem(VendingMachine machine, Inventory inventory, Drinks drink) {
-    System.out.println("Item cannot be selected in current state!" ); 
+    System.out.println("Item cannot be selected in current state!");
     return null;
   }
 
   public Products selectItem(VendingMachine machine, Inventory inventory, String productName) {
-    System.out.println("Item cannot be selected in current state!" ); 
+    System.out.println("Item cannot be selected in current state!");
     return null;
   }
 
   public void makeItem(VendingMachine machine) {
-    System.out.println("Machine cannot make item in current state!" ); 
+    System.out.println("Machine cannot make item in current state!");
   }
 
   public Articles takeItem(VendingMachine machine) {
-    System.out.println("Item cannot be taken in current state!" ); 
+    System.out.println("Item cannot be taken in current state!");
     return null;
   }
 
   public void service(VendingMachine machine) {
-    System.out.println("Service not accepted in current state!" ); 
+    System.out.println("Service not accepted in current state!");
   }
 
   public void endService(VendingMachine machine) {
-    System.out.println("End service not accepted in current state!" ); 
+    System.out.println("End service not accepted in current state!");
   }
 
   public void addProduct(
       VendingMachine machine, String name, Inventory inventory, int price, int quantity) {
-    System.out.println("Products cannot be added in current state" ); 
+    System.out.println("Products cannot be added in current state");
   }
 
   public void addProduct(
       VendingMachine machine, Ingredients ingredients, Inventory inventory, int quantity) {
-    System.out.println("Products cannot be added in current state" ); 
+    System.out.println("Products cannot be added in current state");
   }
 }

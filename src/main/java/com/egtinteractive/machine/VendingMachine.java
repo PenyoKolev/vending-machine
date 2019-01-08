@@ -42,7 +42,12 @@ public class VendingMachine implements Machine {
       inventory.setMilk(inventory.getMilk() - drink.getMilk());
       available = new TreeSet<>();
     } else {
-      inventory.getProducts().remove(article);
+      int quantity = inventory.getProducts().get(article.getName()).getQuantity();
+      if (quantity > 1) {
+        inventory.getProducts().get(article.getName()).setQuantity(quantity - 1);
+      } else {
+        inventory.getProducts().remove(article.getName());
+      }
     }
     setFunds(getFunds() + article.getPrice());
   }
@@ -54,7 +59,7 @@ public class VendingMachine implements Machine {
   void setState(StateMachine state) {
     this.state = state;
   }
-  
+
   public String getStateName() {
     return state.name();
   }

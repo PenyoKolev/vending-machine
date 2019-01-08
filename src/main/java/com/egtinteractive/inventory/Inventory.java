@@ -1,7 +1,7 @@
 package com.egtinteractive.inventory;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import com.egtinteractive.beverage.Products;
 
 public class Inventory {
@@ -10,37 +10,29 @@ public class Inventory {
   public final int COFFEE_TANK = 10;
   public final int MILK_TANK = 10;
 
-  private List<Products> products;
+  private Map<String, ProductPair> products;
   private int coffee;
   private int milk;
 
   public Inventory() {
-    this.products = new ArrayList<>();
+    this.products = new HashMap<>();
     this.coffee = 0;
     this.milk = 0;
   }
 
   public Products getProductByName(String productName) {
 
-    /*
-     * [WARNING] author ivailozd
-     *
-     *  Should find the product faster
-     *
-     */
-    for (Products product : products) {
-      if (product.getName().equals(productName)) {
-        return product;
-      }
+    if (products.containsKey(productName)) {
+      return products.get(productName).getProduct();
     }
-    return null;
+    return null; 
   }
-
-  public List<Products> getProducts() {
+  
+  public Map<String, ProductPair> getProducts() {
     return products;
   }
 
-  public void setProducts(List<Products> products) {
+  public void setProducts(Map<String, ProductPair> products) {
     this.products = products;
   }
 
@@ -58,5 +50,13 @@ public class Inventory {
 
   public void setMilk(int milk) {
     this.milk = milk;
+  }
+
+  public int getSize() {
+    int result = 0;
+    for (ProductPair pair : this.getProducts().values()) {
+      result += pair.getQuantity();
+    }
+    return result;
   }
 }
