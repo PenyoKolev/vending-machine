@@ -128,7 +128,8 @@ public enum StateMachine {
     }
 
     @Override
-    public void addProduct(VendingMachine machine, String name, Inventory inventory, int price, int quantity) {
+    public void addProduct(
+        VendingMachine machine, String name, Inventory inventory, int price, int quantity) {
       Products product = new Products(name, price);
       if (inventory.getProducts().size() + quantity > inventory.DEFAULT_SIZE) {
         System.out.printf(
@@ -142,12 +143,12 @@ public enum StateMachine {
     }
 
     @Override
-    public void addProduct(VendingMachine machine, Ingredients ingredients, Inventory inventory, int quantity) {
+    public void addProduct(
+        VendingMachine machine, Ingredients ingredients, Inventory inventory, int quantity) {
       if (ingredients == Ingredients.COFFEE) {
         if (inventory.getCoffee() + quantity > inventory.COFFEE_TANK) {
           System.out.printf(
-              "Only %d coffee can be added!\n",
-              inventory.COFFEE_TANK - inventory.getCoffee());
+              "Only %d coffee can be added!\n", inventory.COFFEE_TANK - inventory.getCoffee());
         } else {
           inventory.setCoffee(quantity);
         }
@@ -155,8 +156,7 @@ public enum StateMachine {
       if (ingredients == Ingredients.MILK) {
         if (inventory.getMilk() + quantity > inventory.MILK_TANK) {
           System.out.printf(
-              "Only %d milk can be added!\n",
-              inventory.MILK_TANK - inventory.getMilk());
+              "Only %d milk can be added!\n", inventory.MILK_TANK - inventory.getMilk());
         } else {
           inventory.setMilk(quantity);
         }
@@ -202,7 +202,9 @@ public enum StateMachine {
 
   public void endService(VendingMachine machine) {}
 
-  public void addProduct(VendingMachine machine, String name, Inventory inventory,int price, int quantity) {}
+  public void addProduct(
+      VendingMachine machine, String name, Inventory inventory, int price, int quantity) {}
 
-  public void addProduct(VendingMachine machine, Ingredients ingredients, Inventory inventory, int quantity) {}
+  public void addProduct(
+      VendingMachine machine, Ingredients ingredients, Inventory inventory, int quantity) {}
 }

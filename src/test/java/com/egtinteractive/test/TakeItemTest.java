@@ -25,7 +25,7 @@ public class TakeItemTest {
     machine.takeItem();
 
     // Assert
-    assertEquals(machine.getState().toString(), "STAND_BY");
+    assertEquals(machine.getStateName(), "STAND_BY");
   }
   
   @Test(dataProvider = "standBy")

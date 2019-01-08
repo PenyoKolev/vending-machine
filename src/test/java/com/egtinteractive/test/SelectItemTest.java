@@ -24,7 +24,7 @@ public class SelectItemTest {
     machine.selectItem(Drinks.CAPUCCINO);
 
     // Assert
-    assertEquals(machine.getState().toString(), "SELECT_ITEM");
+    assertEquals(machine.getStateName(), "SELECT_ITEM");
   }
 
   @Test(dataProvider = "standBy")
@@ -36,7 +36,7 @@ public class SelectItemTest {
     machine.selectItem(Drinks.CAPUCCINO);
 
     // Assert
-    assertEquals(machine.getState().toString(), "MAKE_ITEM");
+    assertEquals(machine.getStateName(), "MAKE_ITEM");
   }
 
   @Test(dataProvider = "standBy")
@@ -49,7 +49,7 @@ public class SelectItemTest {
     machine.selectItem(Drinks.CAPUCCINO);
 
     // Assert
-    assertEquals(machine.getState().toString(), "SELECT_ITEM");
+    assertEquals(machine.getStateName(), "SELECT_ITEM");
   }
 
   @Test(dataProvider = "standBy")
@@ -64,7 +64,7 @@ public class SelectItemTest {
     machine.selectItem(Drinks.CAPUCCINO);
 
     // Assert
-    assertEquals(machine.getState().toString(), "SERVICE");
+    assertEquals(machine.getStateName(), "SERVICE");
   }
 
   @Test(dataProvider = "standBy")
@@ -92,7 +92,7 @@ public class SelectItemTest {
     machine.selectItem("Lemonade");
 
     // Assert
-    assertEquals(machine.getState().toString(), "SELECT_ITEM");
+    assertEquals(machine.getStateName(), "SELECT_ITEM");
   }
 
   @Test(dataProvider = "standBy")
@@ -108,7 +108,7 @@ public class SelectItemTest {
     machine.selectItem("Chips");
 
     // Assert
-    assertEquals(machine.getState().toString(), "MAKE_ITEM");
+    assertEquals(machine.getStateName(), "MAKE_ITEM");
   }
 
   @Test(dataProvider = "standBy")
@@ -124,7 +124,7 @@ public class SelectItemTest {
     machine.selectItem("Chips");
 
     // Assert
-    assertEquals(machine.getState().toString(), "SELECT_ITEM");
+    assertEquals(machine.getStateName(), "SELECT_ITEM");
   }
 
   @Test(dataProvider = "standBy")

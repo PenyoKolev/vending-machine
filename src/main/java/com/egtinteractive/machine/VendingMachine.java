@@ -44,29 +44,21 @@ public class VendingMachine implements Machine {
     } else {
       inventory.getProducts().remove(article);
     }
-    setFunds(getFunds() + article.getPrice()); 
+    setFunds(getFunds() + article.getPrice());
   }
 
-  /*
-   * [WARNING] author ivailozd
-   *
-   * Can not be public
-   *
-   */
-  public StateMachine getState() {
+  StateMachine getState() {
     return state;
   }
 
-  /*
-   * [WARNING] author ivailozd
-   *
-   * Can not be public
-   *
-   */
-  public void setState(StateMachine state) {
+  void setState(StateMachine state) {
     this.state = state;
   }
   
+  public String getStateName() {
+    return state.name();
+  }
+
   public Inventory getInventory() {
     return inventory;
   }
@@ -74,7 +66,7 @@ public class VendingMachine implements Machine {
   public void setInventory(Inventory inventory) {
     this.inventory = inventory;
   }
-  
+
   public int getBalance() {
     return balance;
   }

@@ -25,7 +25,7 @@ public class MakeItemTest {
     machine.makeItem();
 
     // Assert
-    assertEquals(machine.getState().toString(), "TAKE_ITEM");
+    assertEquals(machine.getStateName(), "TAKE_ITEM");
   }
 
   @Test(dataProvider = "standBy")
@@ -100,6 +100,6 @@ public class MakeItemTest {
     machine.returnCoins();
 
     // Assert
-    assertEquals(machine.getState().toString(), "STAND_BY");
+    assertEquals(machine.getStateName(), "STAND_BY");
   }
 }

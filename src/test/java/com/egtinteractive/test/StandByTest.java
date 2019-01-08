@@ -37,7 +37,7 @@ public class StandByTest {
     machine.putCoins(coins);
 
     // Assert
-    assertEquals(machine.getState().toString(), "SELECT_ITEM");
+    assertEquals(machine.getStateName(), "SELECT_ITEM");
   }
 
   @Test(dataProvider = "standBy")
@@ -49,7 +49,7 @@ public class StandByTest {
     machine.putCoins(coins);
 
     // Assert
-    assertEquals(machine.getState().toString(), "STAND_BY");
+    assertEquals(machine.getStateName(), "STAND_BY");
   }
   
   @Test(dataProvider = "standBy")
@@ -58,7 +58,7 @@ public class StandByTest {
     machine.service();
 
     // Assert
-    assertEquals(machine.getState().toString(), "SERVICE");
+    assertEquals(machine.getStateName(), "SERVICE");
   }
   
   @Test(dataProvider = "standBy")
@@ -67,6 +67,6 @@ public class StandByTest {
     machine.makeItem();
 
     // Assert
-    assertEquals(machine.getState().toString(), "STAND_BY");
+    assertEquals(machine.getStateName(), "STAND_BY");
   }
 }

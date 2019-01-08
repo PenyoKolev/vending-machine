@@ -20,7 +20,7 @@ public class ServiceTest {
     machine.service();
 
     // Assert
-    assertEquals(machine.getState().toString(), "SERVICE");
+    assertEquals(machine.getStateName(), "SERVICE");
   }
 
   @Test(dataProvider = "service")
@@ -83,6 +83,6 @@ public class ServiceTest {
     machine.endService();
 
     // Assert
-    assertEquals(machine.getState().toString(), "STAND_BY");
+    assertEquals(machine.getStateName(), "STAND_BY");
   }
 }

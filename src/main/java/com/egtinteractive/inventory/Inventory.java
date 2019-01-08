@@ -5,7 +5,7 @@ import java.util.List;
 import com.egtinteractive.beverage.Products;
 
 public class Inventory {
-  
+
   public final int DEFAULT_SIZE = 10;
   public final int COFFEE_TANK = 10;
   public final int MILK_TANK = 10;
