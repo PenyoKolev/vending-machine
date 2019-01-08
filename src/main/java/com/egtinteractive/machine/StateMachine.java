@@ -177,34 +177,49 @@ public enum StateMachine {
    */
 
   public int putCoins(VendingMachine machine, int coins) {
+    System.out.println("Coins are not accepted in current state!" ); 
     return coins;
   }
 
   public int returnCoins(VendingMachine machine) {
+    System.out.println("Machine cannot return coins in current state!" ); 
     return 0;
   }
 
   public Drinks selectItem(VendingMachine machine, Inventory inventory, Drinks drink) {
+    System.out.println("Item cannot be selected in current state!" ); 
     return null;
   }
 
   public Products selectItem(VendingMachine machine, Inventory inventory, String productName) {
+    System.out.println("Item cannot be selected in current state!" ); 
     return null;
   }
 
-  public void makeItem(VendingMachine machine) {}
+  public void makeItem(VendingMachine machine) {
+    System.out.println("Machine cannot make item in current state!" ); 
+  }
 
   public Articles takeItem(VendingMachine machine) {
+    System.out.println("Item cannot be taken in current state!" ); 
     return null;
   }
 
-  public void service(VendingMachine machine) {}
+  public void service(VendingMachine machine) {
+    System.out.println("Service not accepted in current state!" ); 
+  }
 
-  public void endService(VendingMachine machine) {}
+  public void endService(VendingMachine machine) {
+    System.out.println("End service not accepted in current state!" ); 
+  }
 
   public void addProduct(
-      VendingMachine machine, String name, Inventory inventory, int price, int quantity) {}
+      VendingMachine machine, String name, Inventory inventory, int price, int quantity) {
+    System.out.println("Products cannot be added in current state" ); 
+  }
 
   public void addProduct(
-      VendingMachine machine, Ingredients ingredients, Inventory inventory, int quantity) {}
+      VendingMachine machine, Ingredients ingredients, Inventory inventory, int quantity) {
+    System.out.println("Products cannot be added in current state" ); 
+  }
 }
