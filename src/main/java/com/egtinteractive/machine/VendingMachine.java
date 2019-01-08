@@ -52,10 +52,6 @@ public class VendingMachine implements Machine {
     setFunds(getFunds() + article.getPrice());
   }
 
-  StateMachine getState() {
-    return state;
-  }
-
   void setState(StateMachine state) {
     this.state = state;
   }
@@ -66,10 +62,6 @@ public class VendingMachine implements Machine {
 
   public Inventory getInventory() {
     return inventory;
-  }
-
-  public void setInventory(Inventory inventory) {
-    this.inventory = inventory;
   }
 
   public int getBalance() {

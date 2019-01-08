@@ -1,10 +1,9 @@
 package com.egtinteractive.test;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import com.egtinteractive.inventory.Inventory;
-import com.egtinteractive.inventory.ProductPair;
 import com.egtinteractive.machine.VendingMachine;
 import com.egtinteractive.machine.VendingMachine.Ingredients;
 import com.egtinteractive.provider.Provider;
@@ -77,6 +76,19 @@ public class ServiceTest {
     // Assert
     assertEquals(machine.getInventory().getCoffee(), 0);
     assertEquals(machine.getInventory().getMilk(), 0);
+  }
+  
+  @Test(dataProvider = "service")
+  public void addProductShouldNotAddIfQuantityEqualOrLessThanOne(VendingMachine machine) {   //TODO
+    // Arrange
+    String name = "Lemonade";
+    int price = 2;
+    int quantity = 0;
+    // Act
+    machine.addProduct(name, price, quantity);
+
+    // Assert
+    assertFalse(machine.getInventory().getProducts().containsKey(name));
   }
 
   @Test(dataProvider = "service")

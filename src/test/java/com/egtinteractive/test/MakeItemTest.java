@@ -1,6 +1,7 @@
 package com.egtinteractive.test;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import com.egtinteractive.beverage.Drinks;
@@ -74,6 +75,24 @@ public class MakeItemTest {
     // Assert
     assertEquals(machine.getInventory().getProducts().size(), quantity - 1);
   }
+  
+  @Test(dataProvider = "standBy")
+  public void makeItemShouldRemoveProductIfQuantityAfterMakeIsZero(VendingMachine machine) {
+    // Arrange
+    String name = "Lemonade";
+    int quantity = 1;
+    int price = 2;
+    machine.service();
+    machine.addProduct(name, price, quantity);
+    machine.endService();
+    machine.putCoins(20);
+    machine.selectItem("Lemonade");
+
+    // Act
+    machine.makeItem();
+
+    // Assert
+    assertFalse(machine.getInventory().getProducts().containsKey(name));  }
 
   @Test(dataProvider = "standBy")
   public void returnCoinsShouldSetBalanceToZero(VendingMachine machine) {

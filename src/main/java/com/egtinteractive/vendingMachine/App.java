@@ -13,7 +13,7 @@ public class App {
     Inventory inventory = new Inventory();
     Machine machine = new VendingMachine(inventory);
 
-    machine.addProduct("Water", 2, 2);
+    machine.addProduct("Water", 20, 2);
     machine.addProduct("Schweppes", 3, 1);
     machine.addProduct("Perrier", 4, 1);
     machine.addProduct(Ingredients.COFFEE, 3);
@@ -34,6 +34,5 @@ public class App {
 
     machine.makeItem();
     machine.takeItem();
-    
   }
 }

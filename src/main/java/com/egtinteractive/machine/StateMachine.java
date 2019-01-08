@@ -1,7 +1,6 @@
 package com.egtinteractive.machine;
 
 import com.egtinteractive.beverage.Drinks;
-import java.util.Map;
 import com.egtinteractive.beverage.Articles;
 import com.egtinteractive.beverage.Products;
 import com.egtinteractive.inventory.Inventory;
@@ -101,9 +100,6 @@ public enum StateMachine {
       machine.updateInventory(machine.getArticle());
       machine.setBalance(machine.getBalance() - machine.getArticle().getPrice());
       machine.setState(TAKE_ITEM);
-      for (ProductPair product : machine.getInventory().getProducts().values()) {
-        System.out.println(product.getProduct().getName() + product.getQuantity()); 
-      }
     }
 
     @Override
@@ -124,8 +120,6 @@ public enum StateMachine {
       machine.setState(STAND_BY);
       machine.setArticle(null);
 
-      
-      
       return machine.getArticle();
     }
   },
@@ -145,7 +139,6 @@ public enum StateMachine {
             inventory.DEFAULT_SIZE - inventory.getProducts().size());
         return;
       }
-      
       ProductPair pair = new ProductPair(product, quantity);
       if (quantity <= 0) {
         return;

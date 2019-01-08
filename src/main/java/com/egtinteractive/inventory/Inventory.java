@@ -25,15 +25,11 @@ public class Inventory {
     if (products.containsKey(productName)) {
       return products.get(productName).getProduct();
     }
-    return null; 
-  }
-  
-  public Map<String, ProductPair> getProducts() {
-    return products;
+    return null;
   }
 
-  public void setProducts(Map<String, ProductPair> products) {
-    this.products = products;
+  public Map<String, ProductPair> getProducts() {
+    return products;
   }
 
   public int getCoffee() {

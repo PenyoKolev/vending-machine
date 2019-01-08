@@ -5,7 +5,7 @@ import com.egtinteractive.beverage.Products;
 public class ProductPair {
   private Products product;
   private int quantity;
-  
+
   public ProductPair(Products product, int quantity) {
     this.setProduct(product);
     this.setQuantity(quantity);
