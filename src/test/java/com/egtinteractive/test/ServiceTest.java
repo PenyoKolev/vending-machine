@@ -99,4 +99,10 @@ public class ServiceTest {
     // Assert
     assertEquals(machine.getStateName(), "STAND_BY");
   }
+  
+  @Test(dataProvider = "service", expectedExceptions = IllegalStateException.class)
+  public void methodUnsuportedForTheStateShouldDoNothing(VendingMachine machine) {
+    // Act
+    machine.makeItem();
+  }
 }

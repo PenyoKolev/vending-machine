@@ -154,4 +154,10 @@ public class SelectItemTest {
     // Assert
     assertEquals(machine.getBalance(), oldCoins);
   }
+  
+  @Test(dataProvider = "standBy", expectedExceptions = IllegalStateException.class)
+  public void methodUnsuportedForTheStateShouldDoNothing(VendingMachine machine) {
+    // Act
+    machine.makeItem();
+  }
 }

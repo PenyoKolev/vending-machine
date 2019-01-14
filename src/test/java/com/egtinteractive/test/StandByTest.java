@@ -61,12 +61,9 @@ public class StandByTest {
     assertEquals(machine.getStateName(), "SERVICE");
   }
   
-  @Test(dataProvider = "standBy")
+  @Test(dataProvider = "standBy", expectedExceptions = IllegalStateException.class)
   public void methodUnsuportedForTheStateShouldDoNothing(VendingMachine machine) {
     // Act
     machine.makeItem();
-
-    // Assert
-    assertEquals(machine.getStateName(), "STAND_BY");
   }
 }

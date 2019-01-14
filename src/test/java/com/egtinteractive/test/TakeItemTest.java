@@ -27,7 +27,7 @@ public class TakeItemTest {
     // Assert
     assertEquals(machine.getStateName(), "STAND_BY");
   }
-  
+
   @Test(dataProvider = "standBy")
   public void takeItemShouldReturnChange(VendingMachine machine) {
     // Arrange
@@ -43,7 +43,7 @@ public class TakeItemTest {
     // Assert
     assertEquals(coins - machine.getFunds(), coins - drink.getPrice());
   }
-  
+
   @Test(dataProvider = "standBy")
   public void takeItemShouldSetBalanceToZero(VendingMachine machine) {
     // Arrange
@@ -56,5 +56,11 @@ public class TakeItemTest {
 
     // Assert
     assertEquals(machine.getBalance(), 0);
+  }
+
+  @Test(dataProvider = "standBy", expectedExceptions = IllegalStateException.class)
+  public void methodUnsuportedForTheStateShouldDoNothing(VendingMachine machine) {
+    // Act
+    machine.makeItem();
   }
 }

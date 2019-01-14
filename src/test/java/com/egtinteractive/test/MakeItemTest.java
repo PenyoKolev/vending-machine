@@ -121,4 +121,10 @@ public class MakeItemTest {
     // Assert
     assertEquals(machine.getStateName(), "STAND_BY");
   }
+  
+  @Test(dataProvider = "standBy", expectedExceptions = IllegalStateException.class)
+  public void methodUnsuportedForTheStateShouldDoNothing(VendingMachine machine) {
+    // Act
+    machine.selectItem(Drinks.CAPUCCINO);
+  }
 }
