@@ -1,10 +1,12 @@
 package com.egtinteractive.test;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNull;
 import java.util.concurrent.ThreadLocalRandom;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import com.egtinteractive.beverage.Drinks;
+import com.egtinteractive.beverage.Products;
 import com.egtinteractive.machine.VendingMachine;
 import com.egtinteractive.provider.Provider;
 
@@ -21,9 +23,10 @@ public class SelectItemTest {
     machine.putCoins(2);
 
     // Act
-    machine.selectItem(Drinks.CAPUCCINO);
+    Drinks drink = machine.selectItem(Drinks.CAPUCCINO);
 
     // Assert
+    assertEquals(drink, Drinks.CAPUCCINO);
     assertEquals(machine.getStateName(), "SELECT_ITEM");
   }
 
@@ -33,9 +36,10 @@ public class SelectItemTest {
     machine.putCoins(20);
 
     // Act
-    machine.selectItem(Drinks.CAPUCCINO);
+    Drinks drink = machine.selectItem(Drinks.CAPUCCINO);
 
     // Assert
+    assertEquals(drink, Drinks.CAPUCCINO);
     assertEquals(machine.getStateName(), "MAKE_ITEM");
   }
 
@@ -46,9 +50,10 @@ public class SelectItemTest {
     machine.getInventory().setMilk(1);
 
     // Act
-    machine.selectItem(Drinks.CAPUCCINO);
+    Drinks drink = machine.selectItem(Drinks.CAPUCCINO);
 
     // Assert
+    assertEquals(drink, Drinks.CAPUCCINO);
     assertEquals(machine.getStateName(), "SELECT_ITEM");
   }
 
@@ -61,9 +66,10 @@ public class SelectItemTest {
     machine.getInventory().setMilk(0);
 
     // Act
-    machine.selectItem(Drinks.CAPUCCINO);
+    Drinks drink = machine.selectItem(Drinks.CAPUCCINO);
 
     // Assert
+    assertEquals(drink, Drinks.CAPUCCINO);
     assertEquals(machine.getStateName(), "SERVICE");
   }
 
@@ -76,9 +82,10 @@ public class SelectItemTest {
     machine.getInventory().setMilk(0);
 
     // Act
-    machine.selectItem(Drinks.CAPUCCINO);
+    Drinks drink = machine.selectItem(Drinks.CAPUCCINO);
 
     // Assert
+    assertEquals(drink, Drinks.CAPUCCINO);
     assertEquals(machine.getBalance(), 0);
   }
 
@@ -89,9 +96,10 @@ public class SelectItemTest {
     machine.putCoins(coins);
 
     // Act
-    machine.selectItem("Lemonade");
+    Products product = machine.selectItem("Lemonade");
 
     // Assert
+    assertNull(product);
     assertEquals(machine.getStateName(), "SELECT_ITEM");
   }
 
@@ -105,9 +113,10 @@ public class SelectItemTest {
     machine.putCoins(coins);
 
     // Act
-    machine.selectItem("Chips");
+    Products product = machine.selectItem("Chips");
 
     // Assert
+    assertEquals(product.getName(), "Chips");
     assertEquals(machine.getStateName(), "MAKE_ITEM");
   }
 
@@ -121,40 +130,39 @@ public class SelectItemTest {
     machine.putCoins(coins);
 
     // Act
-    machine.selectItem("Chips");
+    Products product = machine.selectItem("Chips");
 
     // Assert
+    assertEquals(product.getName(), "Chips");
     assertEquals(machine.getStateName(), "SELECT_ITEM");
   }
 
   @Test(dataProvider = "standBy")
   public void putCoinsShouldAddToBalance(VendingMachine machine) {
     // Arrange
-    int oldCoins = ThreadLocalRandom.current().nextInt(1, 100);
-    machine.putCoins(oldCoins);
     int coins = ThreadLocalRandom.current().nextInt(1, 100);
 
     // Act
-    machine.putCoins(coins);
+    int result = machine.putCoins(coins);
 
     // Assert
-    assertEquals(machine.getBalance(), coins + oldCoins);
+    assertEquals(result, coins);
+    assertEquals(machine.getBalance(), coins);
   }
 
   @Test(dataProvider = "standBy")
   public void putNegativeCoinsShouldNotChangeBalance(VendingMachine machine) {
     // Arrange
-    int oldCoins = ThreadLocalRandom.current().nextInt(1, 100);
-    machine.putCoins(oldCoins);
     int coins = ThreadLocalRandom.current().nextInt(-100, -1);
 
     // Act
-    machine.putCoins(coins);
+    int result = machine.putCoins(coins);
 
     // Assert
-    assertEquals(machine.getBalance(), oldCoins);
+    assertEquals(result, coins);
+    assertEquals(machine.getBalance(), 0);
   }
-  
+
   @Test(dataProvider = "standBy", expectedExceptions = IllegalStateException.class)
   public void methodUnsuportedForTheStateShouldDoNothing(VendingMachine machine) {
     // Act

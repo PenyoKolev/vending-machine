@@ -75,7 +75,7 @@ public class MakeItemTest {
     // Assert
     assertEquals(machine.getInventory().getProducts().size(), quantity - 1);
   }
-  
+
   @Test(dataProvider = "standBy")
   public void makeItemShouldRemoveProductIfQuantityAfterMakeIsZero(VendingMachine machine) {
     // Arrange
@@ -92,36 +92,41 @@ public class MakeItemTest {
     machine.makeItem();
 
     // Assert
-    assertFalse(machine.getInventory().getProducts().containsKey(name));  }
+    assertFalse(machine.getInventory().getProducts().containsKey(name));
+  }
 
   @Test(dataProvider = "standBy")
   public void returnCoinsShouldSetBalanceToZero(VendingMachine machine) {
     // Arrange
-    machine.putCoins(20);
+    int coins = 20;
+    machine.putCoins(coins);
     Drinks drink = Drinks.CAPUCCINO;
     machine.selectItem(drink);
 
     // Act
-    machine.returnCoins();
+    int result = machine.returnCoins();
 
     // Assert
+    assertEquals(result, coins);
     assertEquals(machine.getBalance(), 0);
   }
 
   @Test(dataProvider = "standBy")
   public void returnCoinsShouldChangeStateToSTAND_BY(VendingMachine machine) {
     // Arrange
-    machine.putCoins(20);
+    int coins = 20;
+    machine.putCoins(coins);
     Drinks drink = Drinks.CAPUCCINO;
     machine.selectItem(drink);
 
     // Act
-    machine.returnCoins();
+    int result = machine.returnCoins();
 
     // Assert
+    assertEquals(result, coins);
     assertEquals(machine.getStateName(), "STAND_BY");
   }
-  
+
   @Test(dataProvider = "standBy", expectedExceptions = IllegalStateException.class)
   public void methodUnsuportedForTheStateShouldDoNothing(VendingMachine machine) {
     // Act

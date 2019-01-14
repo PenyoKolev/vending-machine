@@ -3,6 +3,7 @@ package com.egtinteractive.test;
 import static org.testng.Assert.assertEquals;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import com.egtinteractive.beverage.Articles;
 import com.egtinteractive.beverage.Drinks;
 import com.egtinteractive.machine.VendingMachine;
 import com.egtinteractive.provider.Provider;
@@ -22,9 +23,10 @@ public class TakeItemTest {
     machine.makeItem();
 
     // Act
-    machine.takeItem();
+    Articles article = machine.takeItem();
 
     // Assert
+    assertEquals(article, machine.getArticle());
     assertEquals(machine.getStateName(), "STAND_BY");
   }
 
@@ -38,9 +40,10 @@ public class TakeItemTest {
     machine.makeItem();
 
     // Act
-    machine.takeItem();
+    Articles article = machine.takeItem();
 
     // Assert
+    assertEquals(article, machine.getArticle());
     assertEquals(coins - machine.getFunds(), coins - drink.getPrice());
   }
 
@@ -52,9 +55,10 @@ public class TakeItemTest {
     machine.makeItem();
 
     // Act
-    machine.takeItem();
+    Articles article = machine.takeItem();
 
     // Assert
+    assertEquals(article, machine.getArticle());
     assertEquals(machine.getBalance(), 0);
   }
 

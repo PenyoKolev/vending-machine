@@ -21,10 +21,11 @@ public class StandByTest {
     int oldBalance = machine.getBalance();
 
     // Act
-    machine.putCoins(coins);
+    int result = machine.putCoins(coins);
     int expected = oldBalance + coins;
 
     // Assert
+    assertEquals(result, coins);
     assertEquals(machine.getBalance(), expected);
   }
 
@@ -34,9 +35,10 @@ public class StandByTest {
     int coins = ThreadLocalRandom.current().nextInt(1, 100);
 
     // Act
-    machine.putCoins(coins);
+    int result = machine.putCoins(coins);
 
     // Assert
+    assertEquals(result, coins);
     assertEquals(machine.getStateName(), "SELECT_ITEM");
   }
 
@@ -46,12 +48,13 @@ public class StandByTest {
     int coins = ThreadLocalRandom.current().nextInt(-100, -1);
 
     // Act
-    machine.putCoins(coins);
+    int result = machine.putCoins(coins);
 
     // Assert
+    assertEquals(result, coins);
     assertEquals(machine.getStateName(), "STAND_BY");
   }
-  
+
   @Test(dataProvider = "standBy")
   public void serviceShouldChangeStateToSERVICE(VendingMachine machine) {
     // Act
@@ -60,7 +63,7 @@ public class StandByTest {
     // Assert
     assertEquals(machine.getStateName(), "SERVICE");
   }
-  
+
   @Test(dataProvider = "standBy", expectedExceptions = IllegalStateException.class)
   public void methodUnsuportedForTheStateShouldDoNothing(VendingMachine machine) {
     // Act
